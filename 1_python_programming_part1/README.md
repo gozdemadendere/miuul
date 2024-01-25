@@ -7,7 +7,7 @@
 
 _____________________________
 ### 2. Data Structures
-- Integer / Float (Numeric), Boolean, String, Complex
+- Integer, Float, Complex (Numeric), Boolean, String, 
 
 #### Data/Variable Types in Python
 - List
