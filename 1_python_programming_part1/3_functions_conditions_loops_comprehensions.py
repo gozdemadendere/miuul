@@ -793,14 +793,16 @@ students_no = ["John", "Vanessa"]
 # Dict Comprehension
 ###################################
 
-# k: key, v:value
-# numbers icindeki her bir degeri 2 ile carpalim
+# Numbers icindeki her bir degeri 2 ile carpalim ve bir sozluge ekleyelim.
 numbers = range(0, 10)
 
-{k: k ** 2 for k in numbers}
+new_dict = {k: k * 2 for k in numbers}
+new_dict
 
 
 
+
+# Her bir value nun karesini aldiralim ve yeni bir sozluk olusturalim.
 
 dictionary = {"a": 1,
               "b": 2,
@@ -813,8 +815,7 @@ dictionary.keys()
 dictionary.values()
 dictionary.items()
 
-# k: key, v:value
-# her bir value nun karesini aldiralim
+
 {k: v ** 2 for (k, v) in dictionary.items()}
 
 {k.upper(): v for (k, v) in dictionary.items()}
