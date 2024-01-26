@@ -582,8 +582,8 @@ st[1]
 
 
 #############################################      SORU 18       #############################################
+
 # Daha once for loop mulakat sorusunda tanimadigimiz fonksiyonu, enumarete ile yazalim
-###################################
 
 # Eski hali
 def alternating(string):
@@ -614,50 +614,32 @@ alternating(string)
 
 
 #############################################      SORU 19       #############################################
+
 # Aşağıda verilen listede mühendislik ve tıp fakültelerinde dereceye giren öğrencilerin isimleri bulunmaktadır.
 # Sırasıyla ilk üç öğrenci mühendislik fakültesinin başarı sırasını temsil ederken son üç öğrenci de tıp fakültesi öğrenci sırasına aittir.
 # Enumarate kullanarak öğrenci derecelerini fakülte özelinde yazdırınız.
 
 
-ogrenciler = ["Ali", "Veli", "Ayse", "Talat", "Zeynep", "Ece"]
-#               0     1        2       3         4        5
-
-for index, ogrenci in enumerate(ogrenciler[0:3], 1):
-    print("Muhendislik Fakultesi", index, ". ogrenci:", ogrenci)
-
-for index, ogrenci in enumerate(ogrenciler[3:6], 1):
-    print("Tip Fakultesi", index, ". ogrenci:", ogrenci)
+students = ["Ali", "Veli", "Ayse", "Talat", "Zeynep", "Ece"]
+#             0     1        2       3         4        5
 
 
+for index, student in enumerate(students[:3], 1):
+    print(f"Muhendislik Fakultesi {index} . ogrenci: {student}")
 
-
-# fonksiyon yazarak:
-def function(ogrenciler):
-     for index, ogrenci in enumerate(ogrenciler[:3], 1):
-          print("Muhendislik Fakultesi", index, ". ogrenci:", ogrenci)
-
-     for index, ogrenci in enumerate(ogrenciler[3:6], 1):
-          print("Tip Fakultesi", index, ". ogrenci:", ogrenci)
-
-function(ogrenciler)
-ogrenciler = ["Ali", "Veli", "Ayse", "Talat", "Zeynep", "Ece"]
-#               0     1        2       3         4        5
-
-for index, ogrenci in enumerate(ogrenciler[0:3], 1):
-    print("Muhendislik Fakultesi", index, ". ogrenci:", ogrenci)
-
-for index, ogrenci in enumerate(ogrenciler[3:6], 1):
-    print("Tip Fakultesi", index, ". ogrenci:", ogrenci)
+for index, student in enumerate(students[3:6], 1):
+    print(f"Tip Fakultesi {index} . ogrenci: {student}")
 
 
 
 
 # fonksiyon yazarak:
-def function(ogrenciler):
-     for index, ogrenci in enumerate(ogrenciler[:3], 1):
-          print("Muhendislik Fakultesi", index, ". ogrenci:", ogrenci)
+def function(students):
+    for index, student in enumerate(students[:3], 1):
+        print(f"Muhendislik Fakultesi {index} . ogrenci: {student}")
 
-     for index, ogrenci in enumerate(ogrenciler[3:6], 1):
-          print("Tip Fakultesi", index, ". ogrenci:", ogrenci)
+    for index, student in enumerate(students[3:6], 1):
+        print(f"Tip Fakultesi {index} . ogrenci: {student}")
 
-function(ogrenciler)
+function(students)
+

@@ -13,7 +13,7 @@ list(zip(ders_kodu, kredi, kontenjan))       # 3 ayri listeyi, tek bir liste ici
 
 ### METHOD 2: Zip Fonksiyonunu For Döngüsü İle Kullanma
 
-for kod, kredi, kontenjan in zip(ders_kodu, kredi, kontenjan):
+for kod, kredi, kontenjan in zip(ders_kodu, kredi, kontenjan):      # zip icinde liste türü olmali!
     print(f"Ders Kodu: {kod}, Kredi: {kredi}, Kontenjan: {kontenjan}")
 
 
@@ -28,6 +28,7 @@ list1 = [5, 3, 8, 2]
 list1 = [5, 3, 8, 2]
 list2 = [1, 7, 4, 6]
 [number1 * number2 for number1, number2 in zip(list1, list2)]      # 2 ayri listeden, karssilikli her bir rakamin carpimlari gelir
+
 
 
 
@@ -81,11 +82,12 @@ list2 = [1, 7, 4, 6]
 
 
 
+
 ##########        SORU 3 | Ortalama Hesaplama        ##########
 
 # Verilen bir listenin elemanlarının ortalamasını hesaplayan bir Python fonksiyonu yazın.
-def calculate_average(lst):
-    return sum(lst) / len(lst)
+def calculate_average(list):
+    return sum(list) / len(list)
 
 # Örnek kullanım:
 sample_list = [10, 20, 30, 40, 50]
@@ -221,6 +223,8 @@ calculate_sum_in_range(2, 10)
 
 
 
+
+
 ##########        SORU 11         ##########
 
 # Verilen iki listenin elemanlarını anahtar-değer çiftleri olarak içeren bir sözlük oluşturan bir dictionary comprehension yazın.
@@ -231,6 +235,8 @@ values = [1, 2, 3]
 new_dictionary = {k: v for k, v in zip(keys, values)}
 
 new_dictionary
+
+
 
 
 
@@ -248,15 +254,3 @@ squared_dict
 
 
 
-
-
-
-##########        SORU 13         ##########
-
-
-
-##########        SORU 14         ##########
-
-
-
-##########        SORU 15         ##########
