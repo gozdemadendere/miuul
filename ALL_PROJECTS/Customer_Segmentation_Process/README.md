@@ -1,11 +1,11 @@
 ### MÜŞTERİ SEGMENTASYON ANALİZİ (CUSTOMER SEGMENTATION PROCESS)
 #### KURAL TABANLI SINIFLANDIRMA İLE POTANSİYEL MÜŞTERİ GETİRİSİ HESAPLAMA 
 
-Müşteri segmentasyonu; benzer özelliklere, ihtiyaçlara ve davranışlara sahip müşterileri gruplara ayırma, ve bu gruplara özgü pazarlama stratejileri oluşturma sürecidir.
+- Müşteri segmentasyonu; benzer özelliklere, ihtiyaçlara ve davranışlara sahip müşterileri gruplara ayırma, ve bu gruplara özgü pazarlama stratejileri oluşturma sürecidir.
 
-Bu süreçte müşteriler, şirketin elinde bulunan verilere dayalı olarak segmentlere ayrılır.
+- Bu süreçte müşteriler, şirketin elinde bulunan verilere dayalı olarak segmentlere ayrılır.
 
-Projenin amacı, pazarlama stratejilerini desteklemek ve yeni müşterilerin hangi segmentte yer aldığını belirleyerek, bu müşterilerin ortalama getiri beklentisini hesaplamaktır.
+- Projenin amacı, pazarlama stratejilerini desteklemek ve yeni müşterilerin hangi segmentte yer aldığını belirleyerek, bu müşterilerin ortalama getiri beklentisini hesaplamaktır.
 
 ______________________________
 
