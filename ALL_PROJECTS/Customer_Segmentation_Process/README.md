@@ -64,14 +64,30 @@ AGE_CAT isimli yeni bir yaş kategorisi sütunu, CUSTOMERS_LEVEL_BASED isimli ye
 
 <img width="771" alt="Screen Shot 2024-01-30 at 2 58 10 PM" src="https://github.com/gozdemadendere/miuul_data_science_bootcamp/assets/90986708/2fcc0545-f0d5-4eb2-856d-6b1ad7f03b59">
 
-#### Müşteri Grubu Bazında Ort. Fiyat & Segment Analizi
+#### Müşteri Grubu Bazında Ort. Fiyat & Segment Analizi:
 Her CUSTOMERS_LEVEL_BASED müşteri persona grubu için, ortalama alışveriş fiyatı ve fiyat segmenti görülmektedir.
 
 <img width="441" alt="Screen Shot 2024-01-30 at 3 02 25 PM" src="https://github.com/gozdemadendere/miuul_data_science_bootcamp/assets/90986708/a25a862f-54c7-402a-84b1-1a4339403aa2">
 
-#### Müşteri Segmenti Bazında Fiyat Analizi
+#### Müşteri Segmenti Bazında Fiyat Analizi:
 Her SEGMENT için, alışveriş fiyat ortalaması, fiyat toplamı, min ve max fiyatlar görülmektedir.
 
+
 <img width="433" alt="Screen Shot 2024-01-30 at 3 02 55 PM" src="https://github.com/gozdemadendere/miuul_data_science_bootcamp/assets/90986708/6ae280d3-c04e-4fce-b162-f28992f2b9f5">
+
+#### Yeni / Potansiyel Müşteriler için Segment Belirleme ve Gelir Tahminlemesi yapma 
+**Potansiyel Müşteri:**
+
+33 yaşında, ANDROID kullanan bir Türk kadını hangi segmente aittir ve ortalama ne kadar gelir kazandırması beklenir?
+
+**Analiz:**
+
+Bu müşteri "TUR_ANDROID_FEMALE_31_40" müşteri grubunda olup, A müşteri segmentinde yer alır ve alış veriş başına ortalama gelir getiri tahmini 41.83 liradır.
+
+<img width="763" alt="Screen Shot 2024-01-30 at 3 26 07 PM" src="https://github.com/gozdemadendere/miuul_data_science_bootcamp/assets/90986708/d84b497c-d2a2-4cb1-94ca-d601a61a8010">
+
+<img width="173" alt="Screen Shot 2024-01-30 at 3 30 20 PM" src="https://github.com/gozdemadendere/miuul_data_science_bootcamp/assets/90986708/9402e5fd-9767-4ccd-bc57-4fec072a5e21">
+
+
 
 
