@@ -8,6 +8,8 @@
 # - Advanced Functional Exploratory Data Analysis (Gelişmiş Fonksiyonel Keşifçi Veri Analizi)
 
 
+
+
 ##################################################################################################
 # NUMPY (Numerical Python)
 # Python da nümerik islemler, hesaplamalar icin kullanilan bir kutuphanedir.
@@ -55,29 +57,30 @@ a * b
 # Creating NumPy Arrays
 ##########################
 
-np.array([1, 2, 3, 4, 5])        # icindeki liste uzerinden bir numpy array i olusturduk
+np.array([1, 2, 3, 4, 5])        # Bu ifade, [1, 2, 3, 4, 5] değerlerini içeren bir NumPy dizisi oluşturur.
 type(np.array([1, 2, 3, 4, 5]))
 
-# 0 lardan array olusturma:
-# 0 lardan olusan 10 adetlik, integer lardan olan bir array olusturalim
+
+# Bu ifade, 10 elemanı sıfırlardan oluşan bir NumPy dizisi oluşturur. dtype=int parametresi, dizinin veri tipini integer olarak belirtir.
 np.zeros(10, dtype=int)
 
-# rastgele, 0 ile 10 arasinda, 10 adetlik, integer lardan olan bir array olusturalim
+# 0 ile 10 arasında (10 hariç) rastgele tam sayılar üreten bir NumPy dizisi oluşturur. size=10 parametresi, oluşturulacak dizi boyutunu belirtir. Yani, 10 adet rastgele tam sayı içeren bir dizi oluşturur.
 np.random.randint(0, 10, size=10)
 
-# ortalamasi 10, standart  sapmasi 4, 3x4 boyutunda bir array olusturalim
+# ortalamasi 10, standart  sapmasi 4, 3x4 boyutunda bir NumPy dizisi olusturalim
 np.random.normal(10, 4, (3, 4))
 
 
+np.array([1, 2, 3])  # [1, 2, 3] değerlerini içeren bir NumPy dizisi oluşturur.
+np.zeros(5)          # 5 elemanı sıfırlardan oluşan bir NumPy dizisi oluşturur.
+np.arange(1, 10, 2)  # 1'den başlayarak 10'a kadar (10 hariç) 2'şer adımlarla bir dizi oluşturur. Yani, [1, 3, 5, 7, 9] şeklinde bir dizi oluşturur.
+np.empty(3)          # Belirtilen boyutta (3 eleman) ancak herhangi bir spesifik değer atamadan rastgele değerler içeren bir NumPy dizisi oluşturur.
+np.random.randint(10, size=5)   # 5 elemanli, rastgele, 0 ile 10 arasinda bir NumPy dizisi oluşturur.
 
 
 ##########################
 # NumPy array ozellikleri
 ##########################
-
-# 5 adetlik, 0 ile 10 arasinda bir array
-a = np.random.randint(10, size=5)   # veya a = np.random.randint(0, 10, size=5)
-
 
 # ndim: boyut sayisi
 # shape: boyut bilgisi (satir sutun sayisi)
@@ -85,13 +88,13 @@ a = np.random.randint(10, size=5)   # veya a = np.random.randint(0, 10, size=5)
 # dtype: array veri tipi
 
 
-a
+a = np.random.randint(10, size=5)
 
 a.ndim    # 1   >> tek boyutlu
 a.shape   # (5,)     >> 5 elemanli ve tek boyutlu
 a.size    # 5     >> 5 elemanli
 a.dtype    # int64
-
+a.mean()   # 2.2
 
 
 
@@ -111,6 +114,11 @@ array = np.array([1, 2, 3, 4, 5, 6, 7])
 filter_array = array % 2 == 0
 new_array = array[filter_array]
 print(new_array)
+
+
+
+
+
 
 ##########################
 # Reshaping
@@ -208,6 +216,7 @@ v[catch]
 
 
 
+
 ##########################
 # Numpy'da bir array in icinden kosullu eleman secme (Conditions on Numpy)
 ##########################
@@ -237,6 +246,7 @@ v[v >= 3]
 
 
 
+
 ##########################
 # Numpy arraylerinde matematiksel islemler
 ##########################
@@ -260,6 +270,8 @@ np.max(v)
 np.var(v)
 
 v = np.add(v, 1)  # dersek, v artik bu sekilde baz alinacaktir.
+
+
 
 
 
@@ -303,7 +315,7 @@ s  # pandas serisinde index bilgisiyle birlikte elemanlar gelir
 type(s)
 
 # index bilgisini görme
-s.index  # 0dan 5e kadar, 5 dahil degil
+s.index  #(start=0, stop=5, step=1)  0dan 5e kadar, 5 dahil degil
 
 # data type i görme
 s.dtype  # int64
@@ -311,7 +323,7 @@ s.dtype  # int64
 # eleman sayisini görme
 s.size  # 5
 
-# sadece elemanlari görme (numpy arrayi seklinde döndürüyor)
+# sadece elemanlari görme (numpy arrayi icinde bir liste seklinde döndürüyor)
 s.values
 
 # ilk x elemani görme
@@ -320,29 +332,44 @@ s.head(3)
 # son x elemani görme
 s.tail(3)
 
+
+
+
+
 ##########################
 # Reading Data
 ##########################
 import pandas as pd
 
 # csv dosyalarini okuma
-df = pd.read_csv("/Users/gozdebarin/PycharmProjects/pythonProject/datasets/advertising.csv")
+df = pd.read_csv("/datasets/advertising.csv")
 # Projects altinda ilgili dosya uzerine gel, sag tikla,
 # Copy Path e tikla, Path From.. tikla, 2 tirnak arasina gel, yapistir
 
 df.head()
 
 
+
 ##########################
 # Quick Look at Data
 ##########################
+# Import libraries
 import pandas as pd
 import seaborn as sns
 
+# Pandas ve Seaborn kütüphanelerinden bazı ayarları yapılandırma    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+pd.set_option("display.max_columns", None)  # Gösterilecek max sütun sayısını belirleme (None ise tüm sütunlar gelir)
+pd.set_option("display.width", 500)         # Çıktının yanyana gelmesi için genişlik ayarı
+
+# Titanic veri setini yükleme
 df = sns.load_dataset("titanic")
 
+# DataFrame'in ilk beş satırını gösterme
+print(df.head())
+
+
 ##########################
-# Retrieving Series/DataFrame Information  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Retrieving Series/DataFrame Information  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ##########################
 
 df.head()  # first x rows
@@ -351,16 +378,22 @@ df.info()  # Info on DataFrame
 df.describe()  # Detailed info on DataFrame
 df.describe().T  # Transpozu
 df.count()  # Number of non-NA values
+df.isnull().sum()  # How many are there Null values?
 df.isnull()  # Is there any Null values?
 df.isnull().values.any()  # True: there is at least 1 Null value
-df.isnull().sum()  # How many are there Null values?
+
 
 df.columns  # Describe DataFrame columns
-df.shape  # (rows,columns)
-df.index  # Describe index
+df.shape  # (891, 15) (rows,columns)
+df.index  # (start=0, stop=891, step=1) Describe index
 
 df["sex"].head()  # sex sutununa ait ilk 5 satir
 df["sex"].value_counts()  # sex sutununda kac kategori var ve kacar adet degerleri var?
+
+
+
+
+
 
 ##########################
 # Pandas'ta Seçim Islemleri  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -370,8 +403,7 @@ df.index  # 891 index var
 df[0:13]  # 0'dan 13. indexe(satira) kadar döndür (13 dahil degil)
 
 # drop: satir veya sutun silmek
-# axis=0 ise satirlardan, 2. indexi sil
-df.drop(2, axis=0).head()
+df.drop(2, axis=0).head()   # axis=0 ise satirlardan, 2. indexi sil
 
 # 1den fazla index silerken
 delete_indexes = [1, 3, 5, 7]
@@ -383,6 +415,8 @@ df.drop(["deck"], axis=1)
 # Note: df=df.drop()... diyerek dataframe i yeni haliyle sabitleriz. Veya:
 # df.drop(delete_indexes, axis=0, inplace=True) diyerek yeni haliyle sabitleriz.
 # (inplace=True, bir degisiklik yapilinca bu degisikligi kalici yapan bir parametredir.)
+
+
 
 
 ##########################
@@ -424,7 +458,6 @@ df.head()
 
 
 
-
 ##########################
 # Degiskenler uzerinde islemler (SUTUNLAR)
 ##########################
@@ -439,9 +472,14 @@ df.head()
 
 "age" in df  # age dataframe de var mi?
 
-# bir dataframe de 1 degisken secmek
-df["age"].head()  # ilk 5 age
-df.age.head()  # ilk 5 age
+df["age"].head()  # ilk 5 age, pandas serisi seklide
+type(df["age"].head())
+
+
+df[["age"]].head()  # ilk 5 age, pandas dataframe i seklide
+type(df[["age"]].head())
+
+
 
 # bir dataframe de 1den fazla degisken secmek
 df[["age", "alive"]]
@@ -460,8 +498,9 @@ df.head()
 
 # dataframe den degisken silmek
 df.drop("age3", axis=1).head()
-df.drop("age3", axis=1, inplace=True).head()  # kalici olmasi icin
+df.drop("age3", axis=1, inplace=True) # kalici olmasi icin
 
+# dataframe den cok sayida degisken silmek
 col_names = ["age", "alive", "adult_male"]
 df.drop(col_names, axis=1).head()
 
@@ -469,8 +508,25 @@ df.drop(col_names, axis=1).head()
 # loc: label based secimler icin
 df.loc[:, df.columns.str.contains("age")].head()  # tum satirlari al, sutunlarda icinde age olanlari al
 
-# usttekinin tam tersi degerler, yani age ile ilgili seyleri sildik.
+# usttekinin tam tersi degerler, yani age harici seyleri al
 df.loc[:, ~df.columns.str.contains("age")].head()
+
+
+
+
+import pandas as pd
+data = {'A': [1, 2, 3], 'B': [4, 5, 6], 'C': [7, 8, 9]}
+df = pd.DataFrame(data)
+df
+subset = df.loc[0:1, ['A', 'B']]
+
+
+
+data = {'A': [1, 2, 3], 'B': [4, 5, 6], 'C': [7, 8, 9]}
+df = pd.DataFrame(data)
+df
+subset = df.iloc[0:2, [0, 1]]
+
 
 ##########################
 # loc : label based selection
@@ -480,6 +536,7 @@ df.loc[:, ~df.columns.str.contains("age")].head()
 # loc : label based selection (This accessor selects rows and columns by labels.)
 # Example: df.loc[row_label, column_label]
 # Slicing: df.loc['row1_label':'row2_label' , 'column1_label':'column2_label']
+
 df
 
 df.loc[0:3]  # 0'dan 3.satira kadar(3 dahil), tum sutunlar
@@ -489,16 +546,26 @@ df.loc[[0, 1, 2], 'embark_town':'age3']  # 0,1,2. satirlar, embark_town daan age
 df.loc[0:3, "age"]  # 0'dan 3.satira kadar(3 dahil degil), age sutunu
 df.loc[0:3, col_names]  # 0'dan 3.satira kadar(3 dahil degil), col_names icindeki sutunlar
 
+
+
+
+
 # iloc: integer based selection (This accessor selects rows and columns by integer location.)
 # Example: df.iloc[row_position, column_position]
 # Slicing: df.iloc['row1_position':'row2_position','col1_position':'col2_position']
 
 
 df.iloc[2, 2]  # 2. satirda, 2. sütunda olan deger
-df.iloc[0:3]  # 0'dan 3.satira kadar, 3 dahil degil, tum  sutunlar
+df.iloc[0:3]     # 0'dan 3.satira kadar, 3 dahil degil, tum  sutunlar
 df.iloc[0:3, :]  # 0'dan 3.satira kadar, 3 dahil degil, tum  sutunlar
 
 df.iloc[0:3, 0:3]  # 0'dan 3.satira kadar(3 dahil degil), 0'dan 3.sutuna kadar(3 dahil degil)
+
+
+
+
+
+
 
 ##########################
 # Conditional Selection
@@ -508,26 +575,41 @@ import pandas as pd
 import seaborn as sns
 
 # set_option: pandasta bir ayar yapmak icin
-pd.set_option("display.max_columns", None)  # display.max_columns : gosterilecek max column sayisi olmasin
+pd.set_option("display.max_columns", None)  # display.max_columns : gosterilecek max column sayisi
 df = sns.load_dataset("titanic")
 df.head()
 
+
+
+
 ### 1.yol: df[koşul]
-df[df["age"] > 50].head()  # age > 50 olanlari getir
-df["age"][df["age"] > 50].head()  # age > 50 olanlardan, sadece age sutununu getir
+df[df["age"] > 50].head()  # age > 50 oldugunda, tum dataframe i getir
+df["age"][df["age"] > 50].head()  # age > 50 oldugunda, sadece age sutununu getir
+# veya
+df[df["age"] > 50]["age"].head() # age > 50 oldugunda, tum dataframe i getir
+
+df["age"][df["age"] > 50].count()  # age > 50 oldugunda, sadece age sutununda, kac kisi var? (yani 64 kisi 50 yastan buyuk)
 df[df["age"] > 50].count()  # age > 50 olanlari say
 
+
+
 ### 2.yol: label based selection
-df.loc[df["age"] > 50].head()  # age > 50 olanlari getir
-df.loc[df["age"] > 50, "age"].head()  # age > 50 olanlardan, age sutununu getir
-df.loc[df["age"] > 50, ["age", "class"]].head()  # age > 50 olanlardan, age ve class sutununu getir  *****
+df.loc[df["age"] > 50].head()  # age > 50 oldugunda, tum dataframe i getir
+df.loc[df["age"] > 50, "age"].head()  # age > 50 oldugunda, sadece age sutununu getir
+df.loc[df["age"] > 50, ["age", "class"]].head()  # age > 50 oldugunda, age ve class sutununu getir  *****
 
-# 1'den fazla kosul
-# age > 50 & cinsiyeti erkek olanlardan, age ve class sutununu getir
-df.loc[(df["age"] > 50) & (df["sex"] == "male"),
-["age", "class"]].head()
 
-# age > 50 & cinsiyeti erkek & embark_town Cherbourg olanlardan, age class ve embark_town sutununu getir
+
+### 1'den fazla kosul varsa !!
+# 1) Her kosul parantez icine alinmali ()
+# 2) Kosul aralarinda & ya da | olmali
+# 3) Kosul belirtirken df["age"] denmeli, sutun belirtirken "age" denmeli
+# 4) Kosul belirtirken == kullanilmali, mesela: df["sex"] == "male"
+
+# age > 50 & cinsiyeti erkek oldugunda, age ve class sutununu getir
+df.loc[(df["age"] > 50) & (df["sex"] == "male"), ["age", "class"]].head()
+
+# age > 50 & cinsiyeti erkek & embark_town Cherbourg oldugunda, age class ve embark_town sutununu getir
 df.loc[(df["age"] > 50) & (df["sex"] == "male") & (df["embark_town"] == "Cherbourg"),
 ["age", "class", "embark_town"]].head()
 
@@ -536,12 +618,29 @@ df.loc[(df["age"] > 50) & (df["sex"] == "male")
        & ((df["embark_town"] == "Cherbourg") | (df["embark_town"] == "Southampton")),
 ["age", "class", "embark_town"]].head()
 
+
+
+
+
 ##########################
 # Aggregation & Grouping (Toplulastirma & Gruplama)
 ##########################
 
-# group by
-# count(), first(), last(), mean(), median(), min(), max(), std(), var(), sum(), pivot table
+# groupby()   :  groupby("age")  /  groupby(["age", "fare"])  : 2li degiskenlerde liste var!!
+# agg({})     : agg({"age": "mean"})  / agg({"age": ["mean", "sum"]})   /  agg({"age": ["mean", "sum"], "fare": "mean"})
+# count()
+# first()
+# last()
+# mean()
+# sum()
+# median()
+# min()
+# max()
+# std()
+# var()
+
+# pivot table
+
 
 import pandas as pd
 import seaborn as sns
@@ -553,13 +652,15 @@ df.head()
 # yas ortalamasi
 df["age"].mean()
 
-# cinsiyete gore yas ortalamasi
+
+# her bir cinsiyete gore, yas ortalamasi
 df.groupby("sex")["age"].mean()
 # veya
-df.groupby("sex").agg({"age": "mean"})
+df.groupby("sex").agg({"age": "mean"})   # agg({})  icinde dictionary var
+
 
 # cinsiyete gore yas ortalamasi ve yas toplami
-df.groupby("sex").agg({"age": ["mean", "sum"]})  # *****
+df.groupby("sex").agg({"age": ["mean", "sum"]})  # ***** dictionary icinde, liste kullanabiliyorduk
 
 df.groupby("sex").agg({"age": ["mean", "sum"],
                        "embark_town": "count"})
@@ -567,13 +668,17 @@ df.groupby("sex").agg({"age": ["mean", "sum"],
 df.groupby("sex").agg({"age": ["mean", "sum"],
                        "survived": "mean"})  # gemideki kadinlarn %74ü hayatta kalmis, erkeklerin %18i
 
-df.groupby(["sex", "embark_town"]).agg({"age": ["mean"],
+df.groupby(["sex", "embark_town"]).agg({"age": ["mean"],         # ***** groupby() icinde, liste kullanabiliyoruz
                                         "survived": "mean"})
 
 df.groupby(["sex", "embark_town", "class"]).agg({
     "age": ["mean"],
     "survived": "mean",
     "sex": "count"})  # ornegin ilk sirada: kadinlarin yas ort 36, ort %97si kurtulmus, 43 kadin.
+
+
+
+
 
 ##########################
 # Pivot Table
@@ -586,38 +691,96 @@ pd.set_option("display.max_columns", None)
 df = sns.load_dataset("titanic")
 df.head
 
+
 # df.pivot_table("degerler", "satirlar", "sutunlar")
-# kesisim(degerler): survived degiskeninin ortalamasi(mean), satir:sex, sütun:embarked
+# degerler: survived degiskeninin ortalamasi(mean), satir:sex, sütun:embarked
 df.pivot_table("survived", "sex", "embarked")
 
-# kesisim(degerler): survived degiskeni icin standart sapma
+
+# kesisim(degerler): survived degiskeni icin standart sapma gelir
 df.pivot_table("survived", "sex", "embarked", aggfunc="std")
+
 
 # kesisim(degerler): survived degiskeninin ortalamasi(mean), satir:sex, sütun:embarked ve class
 df.pivot_table("survived", "sex", ["embarked", "class"])
 
-# age categorisi olusturalim:
+
+
+
+
+
+## NOTE:
+# pd.cut  : Veriyi kullanıcının belirlediği aralıklara böler. Bu aralıklar eşit büyüklükte olmayabilir ve her bir aralıkta farklı sayıda gözlem olabilir.
+# pd.qcut : Veriyi belirli sayıda eşit büyüklükte parçalara böler. Bu parçaların her birinde yaklaşık olarak eşit sayıda gözlem bulunur.
+
+# Örnek veri oluşturma
+data = {'Value': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+df = pd.DataFrame(data)
+
+# 'Value' sütununu 4 aralığa bölmek
+df['Bins'] = pd.cut(df['Value'], bins=4)
+print(df)
+
+# 'Value' sütununu 4 aralığa bölmek
+df['Bins'] = pd.qcut(df['Value'], q=4)
+print(df)
+
+# Yeni bir Segment sutunu olustur, Price i 4 esit parcaya bolerek 4 farkli Segment olustur
+agg_df["SEGMENT"] = pd.qcut(agg_df["PRICE"], q=4, labels=["D", "C", "B", "A"])
+
+
+##########################
+# Sayisal degiskenleri, kategorik degiskenlere cevirme
+##########################
+
+# age kategorisi olusturalim:
 # .cut ve .qcut: sayisal degiskenleri, kategorik degiskenlere cevirmek icin kullanilir
 df["new_age"] = pd.cut(df["age"], [0, 10, 18, 25, 40, 90])
 df.head()
+
 
 # sutunlar: age kategorisi
 df.pivot_table("survived", "sex", "new_age")
 
 df.pivot_table("survived", "sex", ["new_age", "class"])
 
-# daha okunabilir bir cikti icin
+# Ciktinin yanyana gelmesi icin:  !!!!!!!!!!!
 pd.set_option("display.width", 500)
 df.head()
 
+
+
+
+
+
 ##########################
-# apply  : Satir ya da sutunlarda otomatik olarak fonksiyon calistirma imkani saglarr
+# apply  : Satir ya da sutunlarda otomatik olarak fonksiyon calistirma imkani saglar. (apply(lambda..) veya apply(def fonks adi...)  )
 # lambda : Bir fonksiyon tanimlama seklidir. Kullan-at fonksiyondur.
 ##########################
 
 import pandas as pd
 import seaborn as sns
 
+# Örnek 1
+# Her kişinin yaşını kategoriye (genç, orta yaşlı veya yaşlı) göre sınıflandırmak istiyoruz.
+# Genç, 30 yaşından küçük olanlar, orta yaşlılar 30 ile 60 yaş arasındakiler ve yaşlılar 60 yaşından büyük olanlar olarak kabul edilecektir.
+# İpucu: lambda ifadesi ve apply yöntemini kullanın.
+
+veri = {
+              'İsim': ['Ahmet', 'Mehmet', 'Ayşe', 'Fatma', 'Ali'],
+               'Yaş': [25, 35, 60, 55, 70]
+}
+
+df = pd.DataFrame(veri)
+df
+
+df['Yaş Kategorisi'] = df["Yaş"].apply(lambda x: "Genç" if x < 30 else ("Orta Yaşlı" if x <= 60 else "Yaşlı"))
+df
+
+
+
+
+# Örnek 2
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", 500)
 df = sns.load_dataset("titanic")
@@ -626,17 +789,21 @@ df.head
 df["age2"] = df["age"] * 2
 df["age3"] = df["age"] * 5
 
+
+# tek tek yaparsak:
 (df["age"] / 10).head()
 (df["age2"] / 10).head()
 (df["age3"] / 10).head()
 
+# for dongusu ile:
 for col in df.columns:  # df in sutunlarinda gez
     if "age" in col:  # eger age o sutundaysa
         df[col] = df[col] / 10  # bunu yazdir
 
 df.head()
 
-# ustteki islemi kolaylastiracak bir fonksiyon tanimlayalim
+
+# ustteki islemi kolaylastiracak bir kullan-at fonksiyon tanimlayalim
 df[["age", "age2", "age3"]].apply(lambda x: x / 10).head()
 
 # fonksiyonu daha programatik hale getirelim
@@ -651,13 +818,17 @@ def standart_scaler(col_name):
     return (col_name - col_name.mean()) / col_name.std()
 
 
-df.loc[:, df.columns.str.contains("age")].apply(standart_scaler).head()
+df.loc[:, df.columns.str.contains("age")].apply(standart_scaler).head()  # yani apply ile def fonksiyonu da kullanabiliriz/
 
 # üstteki islemi kaydetmek icin:
 df.loc[:, ["age", "age2", "age3"]] = df.loc[:, df.columns.str.contains("age")].apply(standart_scaler).head()
 
 # veya daha otomatik sekilde yapalim:
 df.loc[:, df.columns.str.contains("age")] = df.loc[:, df.columns.str.contains("age")].apply(standart_scaler).head()
+
+
+
+
 
 ##########################
 # Join (Birlestirme islemleri)
@@ -666,16 +837,17 @@ df.loc[:, df.columns.str.contains("age")] = df.loc[:, df.columns.str.contains("a
 import numpy as np
 import pandas as pd
 
-m = np.random.randint(1, 30, size=(5, 3))
-df1 = pd.DataFrame(m, columns=["var1", "var2",
-                               "var3"])  # pandas dataframe i olustur, m i kullan ve sutunlara var1 var2 var3 isimlerini ver
+m = np.random.randint(1, 30, size=(5, 3))    # 5x3 boyutunda
+df1 = pd.DataFrame(m, columns=["var1", "var2", "var3"])  # pandas dataframe i olustur, m i kullan ve sutunlara var1 var2 var3 isimlerini ver
 df2 = df1 + 99
+
 
 # 1) pd.concat : 2 dataframe i alt alta birlestirmek
 pd.concat([df1, df2])  # 2 dataframe oldugu icin,[] liste icinde tanimladik
 
-# index leri 0'dan baslatmak icin
+# index leri de birlestirmek icin
 pd.concat([df1, df2], ignore_index=True)
+
 
 # 2) pd.merge
 df1 = pd.DataFrame({"employees": ["john", "dennis", "mark", "maria"],
@@ -684,18 +856,30 @@ df1 = pd.DataFrame({"employees": ["john", "dennis", "mark", "maria"],
 df2 = pd.DataFrame({"employees": ["mark", "john", "dennis", "maria"],
                     "start_date": [2010, 2009, 2014, 2019]})
 
+
 df3 = pd.merge(df1, df2, how="inner", on="employees")
 df3
 
+
+# Amac: her calisanin mudur bilgisine de  erismek
 df4 = pd.DataFrame({"group": ["accounting", "engineering", "hr"],
                     "manager": ["Caner", "Mustafa", "Berkcan"]})
+
 
 df5 = pd.merge(df3, df4, how="inner", on="group")
 df5
 
+
 # veya tek seferde 2 merge yapmak
 df6 = pd.merge(df1, df2, how="inner", on="employees").merge(df4, how="inner", left_on="group", right_on="group")
 df6
+
+
+
+
+
+
+
 
 ##########################################################################
 # DATA VISUALIZATION WITH PYTHON : MATPLOTLIB & SEABORN
@@ -757,6 +941,14 @@ plt.show()
 # Boxplot cizelim:
 plt.boxplot(df["fare"])  # aykiri degerleri gorebiliriz, genel dagilim disindaki degerleri gorebiliriz
 plt.show()
+
+
+
+
+
+
+
+
 
 #################################################
 # Matplotlib Ozellikleri
@@ -867,6 +1059,14 @@ plt.plot(x, y)
 
 plt.show()
 
+
+
+
+
+
+
+
+
 #################################################
 # SEABORN
 #################################################
@@ -881,22 +1081,50 @@ from matplotlib import pyplot as plt
 df = sns.load_dataset("tips")
 df.head()
 
+
+
 ### 1) countplot: Kategorik degiskenler icin (Yine kategorik degisken icin value_counts kullanalim)
 df["sex"].value_counts()
-sns.countplot(x=df["sex"], data=df, palette="OrRd")  # x:hangi kategoriyi gosterelim, data:hangi dataframe
+
+sns.countplot(data=df,
+              x="sex",
+              palette="OrRd")   # x: hangi kategoriyi gosterelim, data: hangi dataframe
 plt.show()
+
+
+# veya
+sns.countplot(x=df["sex"],
+              palette="OrRd")   # x: hangi kategoriyi gosterelim, data: hangi dataframe
 
 # matplotlibde soyle olurdu:
 df["sex"].value_counts().plot(kind="bar")
 plt.show()
 
+
 ### 2) boxplot: Sayisal degiskenler icin
+sns.boxplot(data=df,
+            x="total_bill")
+plt.show()
+
+# veya
 sns.boxplot(x=df["total_bill"])
 plt.show()
+
 
 ### 3) histogram:  pandas icerisinde yer alan histogram fonksiyonu
 df["total_bill"].hist()
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
 
 ##########################################################################
 # ADVANCED FUNCTIONAL EDA
@@ -924,32 +1152,55 @@ df = sns.load_dataset("titanic")
 
 df.head()
 df.tail()
-# df.shape()
+print(df.shape)
 df.info()
-df.columns()
-df.index()
-# df.describe().T
+print(df.columns)
+print(df.index)
+df.describe().T
 df.isnull().values.any()
 df.isnull().sum()
-
 # veya
 df.isnull().sum().sort_values(ascending=False)
 
 
-# Bir EDA fonksiyonu olusturalim
-def check_df(dataframe, head=5):  # yani head yazili ise=5 olarak kabul et
-    print("###################### Shape ######################")
-    print(dataframe.shape)
-    print("###################### Types ######################")
-    print(dataframe.dtypes)
+
+
+# Functional Data Exploration : EDA fonksiyonu olusturalim    ****************************************************************************************************************************************
+
+# Vahit Hoca'nin fonksiyonu:
+def check_df(dataframe, head=5):
     print("###################### Head ######################")
     print(dataframe.head(head))
     print("###################### Tail ######################")
     print(dataframe.tail(head))
+    print("###################### Shape ######################")
+    print(dataframe.shape)
+    print("###################### Info ######################")
+    print(dataframe.info())
+    print("###################### Types ######################")
+    print(dataframe.dtypes)
     print("###################### NA ######################")
-    print(dataframe.isnull().sum())
+    print(dataframe.isnull().sum().sort_values(ascending=False))
     print("###################### Quantiles ######################")
     print(dataframe.describe([0, 0.05, 0.50, 0.95, 0.99, 1]).T)
+
+
+# Gözde'nin fonksiyonu:
+def explore_dataframe(dataframe, head=5):
+    print("###################### First 5 Rows ######################")
+    print(dataframe.head(head))
+    print("###################### Last 5 Rows ######################")
+    print(dataframe.tail(head))
+    print("###################### Shape: Rows x Columns ######################")
+    print(dataframe.shape)
+    print("###################### General Info ######################")
+    print(dataframe.info())
+    print("###################### Null Values ######################")
+    print(dataframe.isnull().sum().sort_values(ascending=False))
+    print("###################### Statistical Info ######################")
+    print(dataframe.describe().T)
+
+
 
 
 df = sns.load_dataset("titanic")
@@ -957,6 +1208,9 @@ check_df(df)
 
 df = sns.load_dataset("tips")
 check_df(df)
+
+
+
 
 #############################################
 ### 2) Kategorik Degisken Analizi (Analysis of Categorical Variables)
@@ -973,11 +1227,12 @@ df = sns.load_dataset("titanic")
 df.head()
 
 # tek bir degisken analiz etmek istersek:
-df["embarked"].value_counts()  # sinif sayilarina erisiriz
+df["embarked"].value_counts()  # kategori bazli  sayilara erisiriz (sinif sayilarina)
 df["sex"].unique()  # unique siniflara erisiriz : female, male
 df["sex"].nunique()  # number of unique degerlere erisiriz: sex degiskeni icinde 2 essiz sinif var(female, male)
 
-# Cok sayida degisken analiz etmek icinse, bir fonksiyon olusturalim
+
+# Cok sayida degisken analiz etmek icinse, bir fonksiyon olusturalim           ***************************************************************************************************************************
 df.info()
 df.columns
 df["sex"].dtypes
@@ -985,56 +1240,81 @@ str(df["sex"].dtypes)
 # Note: Kategorik degiskenler: category, object, bool (dtype sutununda yer alirlar )
 # survived: integer(int64) yani numerik ama aslinda kategorik bir degisken (0 veya 1 yani 2 kategori var)
 
-# 1 )))
-# oncelikle, dtype i category, object, bool olanlari cagiralim
+
+### ADIMLAR:
+# 1.Adim:  + kategorik olan degiskenler : cat_cols
+# 2.Adim:  + numerik gorunen ama kategorik olan degiskenler : num_but_cat
+# 3.Adim:  - kategorik gorunen ama kategorik olmayan degiskenler : cat_but_car
+# 4.Adim:    cat_cols + num_but_cat
+# 5.Adim:    cat_cols - cat_but_car
+
+
+##### 1 )))
+# oncelikle, dtype i "category", "object", "bool" olanlari cagiralim
 # list comprehesion kullanalim:
-cat_cols = [col for col in df.columns
-            if str(df[col].dtypes) in ["category", "object", "bool"]]
+
+cat_cols = [col for col in df.columns if str(df[col].dtypes) in ["category", "object", "bool"]]
 
 cat_cols
 
-# 2 )))
-# dtype i numerik gorunumlu ama kategorik olan degiskenleri cagiralim
-# yani 10dan kucuk essiz sinif sayisi olacak ve int64 veya float olacak (10 sayisi, datasete gore degisebilir, biz belirliyoruz)
-num_but_cat = [col for col in df.columns
-               if df[col].nunique() < 10 and df[col].dtypes in ["int", "float"]]
+
+
+##### 2 )))
+# dtype i numerik gorunen  ama kategorik olan degiskenleri cagiralim
+# yani 10dan kucuk kategori sayisi (essiz sinif sayisi) olacak ve int64 veya float olacak (10 sayisi, datasete gore degisebilir, biz belirliyoruz)
+
+num_but_cat = [col for col in df.columns if df[col].dtypes in ["int", "float"] and df[col].nunique() < 10]
 
 num_but_cat
 
-# 3 )))
+
+
+##### 3 )))
 # Kategorik gorunen ama kategorik olmayan degiskenler
 # dtype i object veya category olan, ama alt sinif sayisi cok fazla olan degiskenleri cagiralim
-cat_but_car = [col for col in df.columns
-               if df[col].nunique() > 20 and str(df[col].dtypes) in ["category", "object"]]
 
-# 4 )))
+cat_but_car = [col for col in df.columns if str(df[col].dtypes) in ["category", "object"] and df[col].nunique() > 20]
+
+cat_but_car
+
+
+
+##### 4 )))
 # tum kategorik degiskenleri biraraya toplayalim
 cat_cols = cat_cols + num_but_cat
 
 cat_cols
 
-# 5 )))
+
+
+##### 5 )))
 # Kategorik olmayan degiskenleri, yani cat_but_car dan gelenleri cikaralim
-cat_cols = [col for col in cat_cols
-            if col not in cat_but_car]
+cat_cols = [col for col in cat_cols if col not in cat_but_car]
 
 cat_cols
 
-# sonuc: tum kategorik degiskenler
+
+# sonuc1: tum kategorik degiskenler. dataframe inin columnlari
 df[cat_cols].columns
+
 
 # Her kategorik sutunda, kac alt sinif var?
 df[cat_cols].nunique()
 
-# sonuc2: tum sayisal (yani kategorik olmayan) degiskenler
-[col for col in df.columns
- if col not in cat_cols]
 
-##### Bir degiskende(sutunda), alt siniflar % kac paya sahip, fonksiyon yazalim:
+# sonuc2: tum sayisal (yani kategorik olmayan) degiskenler
+[col for col in df.columns if col not in cat_cols]
+
+
+
+
+
+##### Bir degiskende(sutunda), alt kategoriler (alt siniflar) % kac paya sahip, fonksiyon yazalim: *******************************************************************************************************
 
 df["survived"].value_counts()  # survived alt siniflarindan kacar adet var?
 len(df)
 100 * df["survived"].value_counts() / len(df)  # % olarak nedir?
+
 
 
 def cat_summary(dataframe, col_name):
@@ -1046,11 +1326,13 @@ def cat_summary(dataframe, col_name):
 # sonuc:
 cat_summary(df, "sex")
 
+
 ##### Her degiskende(sutunda), alt siniflar % kac paya sahip, fonksiyon yazalim:
 # ustteki islemi, tum degiskenler(sutunlar) icin uygulatalim
 # cat_cols da col larda gez, ustteki fonksiyonu her col a uygula
 for col in cat_cols:
     cat_summary(df, col)
+
 
 
 ##### Bu fonksiyon icine, grafik ekletelim
@@ -1088,6 +1370,13 @@ for col in cat_cols:
     else:
         cat_summary(df, col, plot=True)
 
+
+
+
+
+
+
+
 #############################################
 ### 3) Sayisal Degisken Analizi (Analysis of Numerical Variables)
 #############################################
@@ -1106,28 +1395,24 @@ df.head()
 df["age"].describe().T
 df[["age", "fare"]].describe().T
 
-# Kategorik degiskenleri yukarida bu sekilde bulmustuk:
 
+
+# Numerik degiskenleri bulan fonksiyon                 ******************************************************************************************************
+# Kategorik degiskenleri yukarida bu sekilde bulmustuk:
 cat_cols = [col for col in df.columns if str(df[col].dtypes) in ["category", "object", "bool"]]
 num_but_cat = [col for col in df.columns if df[col].nunique() < 10 and df[col].dtypes in ["int", "float"]]
 cat_but_car = [col for col in df.columns if df[col].nunique() > 20 and str(df[col].dtypes) in ["category", "object"]]
 cat_cols = cat_cols + num_but_cat
 cat_cols = [col for col in cat_cols if col not in cat_but_car]
-
 cat_cols
 
-# numerik column lari getirelim:
-# col(umn) lari getir, col ara df.columns icinde
-# eger df[col] dtypes i integer veya float ise
-num_cols = [col for col in df.columns
-            if df[col].dtypes in ["int", "float"]]
 
+# numerik column lari getirelim:
+num_cols = [col for col in df.columns if df[col].dtypes in ["int", "float"]]
 num_cols
 
 # num cols ta olup, cat_cols ta olmayan degiskenleri secelim
-num_cols = [col for col in num_cols
-            if col not in cat_cols]
-
+num_cols = [col for col in num_cols if col not in cat_cols]
 num_cols
 
 
@@ -1135,6 +1420,7 @@ num_cols
 def num_summary(dataframe, numerical_col):
     quantiles = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.99]
     print(dataframe[numerical_col].describe(quantiles).T)
+
 
 
 num_summary(df, "age")
@@ -1163,6 +1449,12 @@ num_summary(df, "age", plot=True)
 for col in num_cols:
     num_summary(df, col, plot=True)
 
+
+
+
+
+
+
 #############################################
 ### Degiskenlerin yakalanmasi ve Islemlerin gerceklestirilmesi
 # (Capturing Variables and Generalizing Operations)
@@ -1180,9 +1472,9 @@ df.head()
 df.info()
 
 
-# fonksiyon: kategorik degisken listesi, numerik degisken listesi, kategorik gorunen ama cardinal listesini versin
-# bir degisken sayisal olsa da, essis sinif sayisi 10dan kucuk ise, kategoriktir muamelesi yapalim
-# bir degisken kategorik olsa da, essis sinif sayisi 20den buyukse, cardinal degiskendir diyelim
+# Fonksiyon: kategorik degisken listesi, numerik degisken listesi, kategorik gorunen ama cardinal listesini versin   ********************************************************************
+# bir degisken sayisal olsa da, alt kategori sayisi 10dan kucuk ise, kategoriktir muamelesi yapalim
+# bir degisken kategorik olsa da, alt kategori sayisi 20den buyukse, cardinal degiskendir diyelim
 
 # docstring: fonksiyona dokuman yazmak
 def grab_col_names(dataframe, cat_th=10, car_th=20):
@@ -1268,6 +1560,8 @@ def num_summary(dataframe, numerical_col, plot=False):
 for col in num_cols:
     cat_summary(df, col, plot=True)
 
+
+
 # BONUS: veri setini bastan okut
 # bool lari bul ve integer a cevir, cat_cummary i daha pratikce kullan
 df = sns.load_dataset("titanic")
@@ -1295,6 +1589,14 @@ for col in cat_cols:
 
 for col in num_cols:
     cat_summary(df, col, plot=True)
+
+
+
+
+
+
+
+
 
 ### 4) Hedef Degisken Analizi (Analysis of Target Variables)
 import numpy as np
@@ -1398,6 +1700,12 @@ target_summary_with_num(df, "survived", "age")
 
 for col in num_cols:
     target_summary_with_num(df, "survived", col)
+
+
+
+
+
+
 
 ### 5) Korelasyon Analizi (Analysis of Correlation)
 import numpy as np
