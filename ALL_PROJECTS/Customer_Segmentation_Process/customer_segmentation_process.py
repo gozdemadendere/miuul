@@ -1,28 +1,26 @@
 
 #############################################
 # MÜŞTERİ SEGMENTASYON ANALİZİ (CUSTOMER SEGMENTATION PROCESS)
-# KURAL TABANLI SINIFLANDIRMA İLE POTANSİYEL MÜŞTERİ GETİRİSİ HESAPLAMA ()
+# KURAL BAZLI SINIFLANDIRMA İLE POTANSİYEL MÜŞTERİ GETİRİSİ HESAPLAMA (RULE BASED CLASSIFICATION)
 #############################################
 
-# Müşteri segmentasyonu; benzer özelliklere, ihtiyaçlara ve davranışlara sahip müşterileri gruplara ayırma,
+# Müşteri segmentasyonu, benzer özelliklere, ihtiyaçlara ve davranışlara sahip müşterileri gruplara ayırma,
 # ve bu gruplara özgü pazarlama stratejileri oluşturma sürecidir.
 
-# Bu süreçte müşteriler, şirketin elinde bulunan verilere dayalı olarak segmentlere ayrılır.
-
-# Projenin amacı, pazarlama stratejilerini desteklemek
-# ve yeni müşterilerin hangi segmentte yer aldığını belirleyerek, bu müşterilerin ortalama getiri beklentisini hesaplamaktır.
+# Segmentasyonun amacı, yeni müşterilerin hangi segmentte yer aldığını belirleyerek,
+# pazarlama stratejilerini desteklemek ve bu müşterilerin ortalama getiri beklentisini hesaplamaktır.
 
 
 
 
 
 #############################################
-# İŞ PROBLEMI / PROJE HEDEFİ
+# İŞ PROBLEMI / PROJE HEDEFLERİ
 #############################################
 # Bir oyun şirketi, müşteri özelliklerine dayanarak, seviye tabanlı yeni müşteri tanımları (persona) oluşturmayı
-# ve bu tanımları kullanarak müşterileri segmentlere ayırmayı amaçlıyor.
+# ve bu tanımlara göre müşterileri segmentlere ayırmayı amaçlıyor.
 
-# Ardından, bu segmentlere dayanarak potansiyel yeni müşterilerin, şirkete ortalama gelir getirisini tahmin etmek istiyor.
+# Ardından, bu segmentlere göre potansiyel yeni müşterilerin, şirkete ortalama gelir getirisini tahmin etmek istiyor.
 
 # Örneğin: Türkiye’den IOS kullanan 25 yaşındaki bir erkek kullanıcının, ortalama getirisinin belirlenmesi hedefleniyor.
 
@@ -63,7 +61,7 @@
 # 2) AGE_CAT isimli yeni bir age kategorisi sutunu olusturma
 # 3) CUSTOMERS_LEVEL_BASED isimli yeni bir persona tanimlama sutunu olusturma (FRA_ANDROID_FEMALE_24_30 gibi)
 # 4) Price ortalamalarina gore yeni bir SEGMENT sutunu olusturma (A,B,C,D segmentleri ile)
-# 5)
+# 5) Yeni / potansiyel musteriler icin segment belirleme ve gelir tahminlemesi yapma
 
 
 
@@ -77,14 +75,15 @@
 # 3     29  android  male     tur   17
 # 4     49  android  male     tur   17
 
+
 ################# Uygulama Sonrası DataFrame #####################
 
-#       CUSTOMERS_LEVEL_BASED        PRICE SEGMENT
-# 0   BRA_ANDROID_FEMALE_0_18  1139.800000       A
-# 1  BRA_ANDROID_FEMALE_19_23  1070.600000       A
-# 2  BRA_ANDROID_FEMALE_24_30   508.142857       A
-# 3  BRA_ANDROID_FEMALE_31_40   233.166667       C
-# 4  BRA_ANDROID_FEMALE_41_66   236.666667       C
+#         CUSTOMERS_LEVEL_BASED  PRICE SEGMENT
+# 280     FRA_ANDROID_MALE_0_18  30.25       D
+# 329      FRA_IOS_FEMALE_24_30  25.00       D
+# 175      TUR_IOS_FEMALE_19_23  34.00       C
+# 18   TUR_ANDROID_FEMALE_31_40  43.00       A
+# 263    BRA_ANDROID_MALE_19_23  31.00       D
 
 
 
@@ -104,9 +103,14 @@
 import pandas as pd
 import seaborn as sns
 
+# Code ciktisi ayarlari
+pd.set_option("display.max_columns", None)  # tum sutunlar gosterilsin
+pd.set_option("display.width", 500)         # tum sutunlar yanyana gelsin
+pd.set_option("display.precision", 2)       # loat degerler virgul sonrasi 2 basamakli gelsin
+
 
 # read the csv file
-df = pd.read_csv("/Users/gozdemadendere/Desktop/PycharmProjects/pythonProject/datasets/persona.csv")
+df = pd.read_csv("/Users/gozdemadendere/Desktop/PycharmProjects/Python_Programming_Project/datasets/persona.csv")
 # Projects altinda ilgili dosya uzerine gel, sag tikla, Copy Path e tikla, Path From.. tikla, 2 tirnak arasina gel, yapistir
 
 
@@ -128,7 +132,7 @@ def explore_dataframe(dataframe, head=5):
 explore_dataframe(df)
 
 
-
+df.sample(5)
 
 # Soru 2: Kaç unique SOURCE vardır? Frekansları nedir?
 
@@ -344,6 +348,10 @@ agg_df["SEGMENT"] = pd.qcut(agg_df["PRICE"], q=4, labels=["D", "C", "B", "A"])
 agg_df.sample(10)
 
 agg_df.groupby("SEGMENT").agg({"PRICE": ["mean", "sum", "min", "max", "count"]})
+
+
+# sadece "CUSTOMERS_LEVEL_BASED" ve "PRICE" sutunlarini filtreleme
+agg_df.loc[:, ["CUSTOMERS_LEVEL_BASED", "PRICE", "SEGMENT"]].sample(5)
 
 
 
