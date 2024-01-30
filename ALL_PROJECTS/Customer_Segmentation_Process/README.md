@@ -1,7 +1,7 @@
 ## MÜŞTERİ SEGMENTASYON ANALİZİ (CUSTOMER SEGMENTATION PROCESS)
 (Kural Tabanlı  Sınırlandırma : Segmentasyon )
 
-- Müşteri segmentasyonu; benzer özelliklere, ihtiyaçlara, davranışlara sahip müşterileri gruplara ayırma, ve bu gruplara özgü pazarlama stratejileri oluşturma sürecidir.
+- Müşteri Segmentasyon Süreci, benzer özelliklere, ihtiyaçlara, davranışlara sahip müşterilerin gruplandırılması / segmente edilmesi ve her gruba özel pazarlama stratejilerinin oluşturulmasını içerir.
 
 - Müşteri segmentini çeşitli kurallara göre oluştururuz. Örneğin müşterinin yaşı, yaşadığı şehir, harcama tutarına göre segment oluşturabiliriz. 
 
@@ -16,6 +16,11 @@ Bir oyun şirketi, müşteri özelliklerine dayanarak, seviye tabanlı yeni mü�
 Ardından, bu segmentlere göre potansiyel yeni müşterilerin, şirkete ortalama gelir getirisini tahmin etmek istiyor.
 
 Örneğin: Türkiye’den IOS kullanan 25 yaşındaki bir erkek kullanıcının, ortalama getirisinin belirlenmesi hedefleniyor.
+
+Proje Hedefleri:
+- Müşterileri ortak özelliklere göre segmentlere ayırmak
+- Her müşteri segmentinin potansiyel gelirini tahmin etmek
+- Şirketin pazarlama stratejilerine destek olmak için aydınlatıcı bilgiler sağlamak
 
 
 ______________________________
@@ -68,5 +73,8 @@ Bu müşteri "TUR_ANDROID_FEMALE_31_40" müşteri grubunda olup, A müşteri seg
 <img width="173" alt="Screen Shot 2024-01-30 at 3 30 20 PM" src="https://github.com/gozdemadendere/miuul_data_science_bootcamp/assets/90986708/9402e5fd-9767-4ccd-bc57-4fec072a5e21">
 
 
+### Proje Sonuçları:
 
-
+- Müşterileri Anlamak: Müşteri verilerini analiz etmek bize onların tercihleri ​​ve davranışları hakkında değerli bilgiler verdi.
+- Gelir Tahmini: Yeni müşteriler için gelir potansiyelini tahmin etmek, yüksek değerli müşterilere odaklanarak kaynakların daha iyi kullanılmasına yardımcı olabilir.
+- Genel olarak bu proje, müşteri davranışını anlama ve iş büyümesini artırma konusunda veriye dayalı karar vermenin gücünü vurguladı.
