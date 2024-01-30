@@ -1,5 +1,5 @@
-### MÜŞTERİ SEGMENTASYON ANALİZİ (CUSTOMER SEGMENTATION PROCESS)
-#### KURAL TABANLI SINIFLANDIRMA İLE POTANSİYEL MÜŞTERİ GETİRİSİ HESAPLAMA 
+#### MÜŞTERİ SEGMENTASYON ANALİZİ (CUSTOMER SEGMENTATION PROCESS)
+##### KURAL TABANLI SINIFLANDIRMA İLE POTANSİYEL MÜŞTERİ GETİRİSİ HESAPLAMA 
 
 - Müşteri segmentasyonu; benzer özelliklere, ihtiyaçlara ve davranışlara sahip müşterileri gruplara ayırma, ve bu gruplara özgü pazarlama stratejileri oluşturma sürecidir.
 
@@ -9,7 +9,7 @@
 
 ______________________________
 
-### 1. İŞ PROBLEMI / PROJE HEDEFİ
+#### 1. İŞ PROBLEMI / PROJE HEDEFİ
 
 Bir oyun şirketi, müşteri özelliklerine dayanarak, seviye tabanlı yeni müşteri tanımları (persona) oluşturmayı ve bu tanımları kullanarak müşterileri segmentlere ayırmayı amaçlıyor.
 
@@ -20,7 +20,7 @@ Ardından, bu segmentlere dayanarak potansiyel yeni müşterilerin, şirkete ort
 
 ______________________________
 
-### 2. VERİ SETİ HİKAYESİ
+#### 2. VERİ SETİ HİKAYESİ
 Persona.csv veri seti uluslararası bir oyun şirketinin ürünlerinin fiyatlarını ve bu ürünleri satın alan kullanıcıların bazı demografik bilgilerini içeriyor.
 Veri setinde her satış işlemi için bir kayıt bulunuyor, yani tablo tekilleştirilmemiştir.
 Bu, belirli demografik özelliklere sahip bir kullanıcının birden fazla alışveriş yapmış olabileceği anlamına geliyor.
@@ -36,7 +36,7 @@ Bu, belirli demografik özelliklere sahip bir kullanıcının birden fazla alı�
 
 ______________________________
 
-### 3. PROJE AŞAMALARI
+#### 3. PROJE AŞAMALARI
 
 
 - Veri setinin incelenmesi ve anlaşılması
