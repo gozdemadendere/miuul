@@ -19,6 +19,8 @@ df.head()
 
 
 
+
+
 ##### Görev 2:
 # Titanic veri setindeki kadın ve erkek yolcuların sayısını bulunuz.
 
@@ -35,6 +37,9 @@ df.nunique()
 df.nunique().sort_values(ascending=False)
 
 
+
+
+
 ##### Görev 4:
 # pclass değişkeninin unique değerlerinin sayısını bulunuz.
 
@@ -43,10 +48,13 @@ df["pclass"].nunique()
 
 
 
+
+
 ##### Görev 5:
 # pclass ve parch değişkeninin unique değerlerinin sayısını bulunuz.
 
 df[["pclass", "parch"]].nunique()
+
 
 
 
@@ -97,6 +105,7 @@ df.loc[(df["fare"] > 500) | (df["age"] > 70)]
 
 
 
+
 ##### Görev 11:
 # Her bir değişkendeki boş değerlerin toplamını bulunuz.
 
@@ -104,6 +113,14 @@ df.isnull().sum()
 
 # or
 df.isnull().sum().sort_values(ascending=False)
+
+
+# tum dataframedeki boş değerlerin toplamını bulunuz.
+df.isnull().sum().sum()
+
+
+
+
 
 
 ##### Görev 12:
@@ -118,9 +135,10 @@ df.drop("who", axis=1, inplace=True)
 ##### Görev 13:
 # deck değişkenindeki boş değerleri deck değişkeninin en çok tekrar eden değeri (mode) ile doldurunuz.
 
-df["deck"] = df["deck"].fillna(df["deck"].mode()[0])  # [0] o sutundaki ilk (yani en sık tekrar eden) değeri seçer.
+df["deck"] = df["deck"].fillna(df["deck"].mode()[0])   # [0] o sutundaki ilk (yani en sık tekrar eden) değeri seçer.
 
-
+# or
+df["deck"].fillna(df["deck"].mode()[0], inplace=True)  # inplace ile atama yapmadan kalici hale getirdik
 
 
 
@@ -140,7 +158,7 @@ df.isnull().sum().sort_values(ascending=False)
 # survived değişkeninin pclass ve cinsiyet değişkenlerine göre kırılımını yapip, sum, count, mean değerlerini bulunuz.
 
 df.groupby(["pclass", "sex"]).agg({"survived": ["sum", "mean", "count"]})
-df.groupby(["pclass", "sex"]).agg({"survived": ["sum", "mean", "count"]}).reset_index()  # bir DataFrame'in indeksini sıfırlamak veya değiştirmek istiyorsanız
+df.groupby(["pclass", "sex"]).agg({"survived": ["sum", "mean", "count"]}).reset_index()  # bir DataFrame'in indeksini sıfırlamak veya değiştirmek istiyorsak
 
 # veya
 df.groupby(['pclass', 'sex'])['survived'].agg(["sum", "mean", "count"])
@@ -154,9 +172,15 @@ df.groupby(['pclass', 'sex'])['survived'].agg(["sum", "mean", "count"]).reset_in
 # Yazdığınız fonksiyonu kullanarak titanik veri setinde age_flag adında bir değişken oluşturunuz.
 # apply ve lambda yapılarını kullanınız.
 
+
 df["age_flag"] = df["age"].apply(lambda x: 1 if x < 30 else 0)
 
-df.head()
+
+# or
+def create_age_flag(age):
+    return 1 if age < 30 else 0
+
+df["age_flag"] = df["age"].apply(lambda x: create_age_flag(x))
 
 
 
