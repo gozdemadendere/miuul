@@ -23,7 +23,7 @@ df = sns.load_dataset("titanic")
 # 1) UPDATE DATAFRAME'S PRINT          : pd.set_option("display...", )
 # 2) EXPLORE DATAFRAME                 : head(), info(), describe(), df.columns ...
 # 3) UPDATE DATAFRAME ROWS / COLUMNS   : astype(), reset_index(), rename(columns={}), replace({}), fillna(), drop(), pd.cut(), pd.qcut()
-# 4) DATE & TIME CHANGES               :
+# 4) DATE & TIME CHANGES               : .dt.year , .dt.month , .dt.day
 # 5) DATA SELECTION & FILTERING        : loc, iloc, isin([]), between(), str.startswith(), str.endswith(), str.contains()
 # 6) GROUP THE DATA                    : groupby()
 # 7) JOIN DATAFRAMES                   : pd.merge(), pd.concat([])
@@ -238,6 +238,37 @@ df["age_cat"] = pd.cut(df["age"], bins=[0, 18, 23, 30, 40, 70], labels=["0_18", 
 ##################################################################################################
 # 4) DATE & TIME CHANGES
 ##################################################################################################
+import pandas as pd
+import random
+from datetime import datetime, timedelta
+
+# Define the range of dates
+start_date = datetime(2020, 1, 1)
+end_date = datetime(2022, 12, 31)
+# Generate random dates within the range for the new column
+df['date'] = [start_date + timedelta(days=random.randint(0, (end_date - start_date).days)) for _ in range(len(df))]
+
+
+# Extract Year
+df['year'] = df['date'].dt.year
+
+# Extract Month
+df['month'] = df['date'].dt.month
+
+# Extract Day
+df['day'] = df['date'].dt.day
+
+# Extract Weekday Name:
+df['weekday_name'] = df['date'].dt.day_name()
+
+# Extract Quarter:
+df['quarter'] = df['date'].dt.quarter
+
+
+
+
+
+
 
 
 
