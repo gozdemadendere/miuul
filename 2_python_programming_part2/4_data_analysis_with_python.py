@@ -2,8 +2,8 @@
 # PYTHON ILE VERI ANALIZI (DATA ANALYSIS WITH PYTHON)
 ##########################################################################
 
-# - NumPy
-# - Pandas (NumPy üzerine kuruludur, daha gelişmiştir)
+# - NumPy (Numerical Python)
+# - Pandas (Panel Data Analysis)
 # - Data Visualization: Matplotlib & Seaborn (daha gelişmiştir)
 # - Advanced Functional Exploratory Data Analysis (Gelişmiş Fonksiyonel Keşifçi Veri Analizi)
 
@@ -12,15 +12,15 @@
 
 ##################################################################################################
 # NUMPY (Numerical Python)
-# Python da nümerik islemler, hesaplamalar icin kullanilan bir kutuphanedir.
+# Python'da NumPy dizileri, matematiksel işlemleri hızlı bir şekilde gerçekleştirmek için kullanilan bir kutuphanedir.
 # Yuksek boyutlu array ve matrisler uzerinde yuksek performansli calisma imkani saglar.
 
-# Listelerden ne farki vardir?
-# 1 verimli veri saklama ve 2 vektorel islemlerdir.
-# Her verinin ayrı ayrı tipini tutmaz, tek bir tip tutar ve o tipteki verileri içinde saklar ve daha hızlıdır.
 
-# Neden NumPy?:
-# 1 hizlidir, 2 yuksek seviyeden (vektorel seviyeden) islemler yapilmasini saglar.
+### Neden Python List yerine Numpy? Veya Numpy neden değerlidir?
+# 1) Numpy, Python listelerinden daha hızlıdır (tek tip veri tutar)
+# 2) Yüksek seviyeden (vektörel seviyeden) işlem yapılmasını sağlar (daha temiz kod çıktısı, daha iyi performans)
+
+
 ##################################################################################################
 
 # Loading the library
@@ -57,8 +57,15 @@ a * b
 # Creating NumPy Arrays
 ##########################
 
-np.array([1, 2, 3, 4, 5])        # Bu ifade, [1, 2, 3, 4, 5] değerlerini içeren bir NumPy dizisi oluşturur.
 type(np.array([1, 2, 3, 4, 5]))
+
+
+np.array([1, 2, 3])  # [1, 2, 3] değerlerini içeren bir NumPy dizisi oluşturur.
+np.zeros(5)          # 5 elemanlı, sıfırlardan oluşan bir NumPy dizisi oluşturur.
+np.arange(1, 10, 2)  # 1'den başlayarak 10'a kadar (10 hariç) 2'şer adımlarla bir dizi oluşturur. Yani, [1, 3, 5, 7, 9] şeklinde bir dizi oluşturur.
+np.empty(3)          # Belirtilen boyutta (3 eleman) ancak herhangi bir spesifik değer atamadan rastgele değerler içeren bir NumPy dizisi oluşturur.
+np.random.randint(10, size=5)   # 5 elemanli, rastgele, 0 ile 10 arasinda bir NumPy dizisi oluşturur.
+
 
 
 # Bu ifade, 10 elemanı sıfırlardan oluşan bir NumPy dizisi oluşturur. dtype=int parametresi, dizinin veri tipini integer olarak belirtir.
@@ -70,12 +77,6 @@ np.random.randint(0, 10, size=10)
 # ortalamasi 10, standart  sapmasi 4, 3x4 boyutunda bir NumPy dizisi olusturalim
 np.random.normal(10, 4, (3, 4))
 
-
-np.array([1, 2, 3])  # [1, 2, 3] değerlerini içeren bir NumPy dizisi oluşturur.
-np.zeros(5)          # 5 elemanı sıfırlardan oluşan bir NumPy dizisi oluşturur.
-np.arange(1, 10, 2)  # 1'den başlayarak 10'a kadar (10 hariç) 2'şer adımlarla bir dizi oluşturur. Yani, [1, 3, 5, 7, 9] şeklinde bir dizi oluşturur.
-np.empty(3)          # Belirtilen boyutta (3 eleman) ancak herhangi bir spesifik değer atamadan rastgele değerler içeren bir NumPy dizisi oluşturur.
-np.random.randint(10, size=5)   # 5 elemanli, rastgele, 0 ile 10 arasinda bir NumPy dizisi oluşturur.
 
 
 ##########################
@@ -203,16 +204,21 @@ m[0:2, 0:3]
 # Fancy Index
 ##########################
 
-# arange ile asagidaki ornek: 0'dan 30'a (30 haric), 3er 3er artacak sekilde bir array olustur
-v = np.arange(0, 30, 3)
+# Fancy index ile, bir dizideki/arraydeki elemanlara toplu şekilde ulaşmak için bir listeyi veya diziyi kullanabiliriz.
 
-v
-v[4]
+# Basit bir numpy dizisi oluşturalım
+arr = np.array([10, 20, 30, 40, 50])  # Çıktı: array([10, 20, 30, 40, 50])
 
-# bir index listesi olusturalim
-catch = [1, 2, 3]
+# Fancy index için bir indeks listesi oluşturalım
+indices = [1, 3]
 
-v[catch]
+# Fancy index kullanarak ilgili indekslerdeki elemanlara ulaşalım
+result = arr[indices]    # indices adlı listedeki 1 ve 3 indekslerindeki elemanlara fancy index kullanarak ulaşıyoruz
+#      = arr[1, 3]
+
+print(result)  # Çıktı: [20 40]
+
+
 
 
 
@@ -298,14 +304,19 @@ np.linalg.solve(a, b)
 ##################################################################################################
 # PANDAS
 ##################################################################################################
+# NumPy üzerine kuruludur, daha gelişmiştir, veri analizi ve manipülasyonu için daha yüksek düzeyli işlevsellik sağlar.
 
-##########################
-# Pandas Series
-##########################
 
-# Pandas serileri ve Pandas Dataframe leri, en cok kullanilan veri yapilaridir.
-# Pandas serileri TEK boyutlu, ve index bilgisi barindiran bir veri tipidir.
-# Pandas dataframeleri ÇOK boyutlu, ve index bilgisi barindiran bir veri tipidir.
+### Pandas serisi tek boyutlu dizilerdir. Index bilgisi barindirir.
+### Pandas Dataframe i  iki boyutlu bir veri yapısıdır. Tablo benzeridir, satırlar ve sütunlardan oluşur. Index bilgisi barindirir.
+
+
+### NumPy array i ve Pandas Dataframe i arasındaki fark:
+# 1- NumPy'da index yoktur (Pandas'ta attribute olarak index iç özelliktir, numpy'da ise biz kendimiz index tanımlarız)
+# 2- Farklı veri tipleriyle çalışırlar. (NumPy dizileri tek boyutlu veya çok boyutlu olabilirken, Pandas DataFrame'leri iki boyutludur, yani satırlar ve sütunlar içerir.)
+# 3- NumPy dizileri, matematiksel işlemleri hızlı bir şekilde gerçekleştirmek içindir, Pandas DataFrame'leri ise veri analizi ve manipülasyonu için daha yüksek düzeyli işlevsellik sağlar.
+
+
 
 import pandas as pd
 
@@ -479,6 +490,10 @@ type(df["age"].head())
 df[["age"]].head()  # ilk 5 age, pandas dataframe i seklide
 type(df[["age"]].head())
 
+### df[“x”] ve df[[“x”]]  farklı, ilkinde seri seçerken 2.sinde dataframe seçiyoruz
+# Sonuç olarak ikisinde sonuç data type i farklı olur (ilki pandas serisi 2.si dataframe i olarak gelir),
+# Dikkat ! seriye ve dataframe e uygulanan methodlar farkli olabilmektedir
+
 
 
 # bir dataframe de 1den fazla degisken secmek
@@ -545,7 +560,6 @@ df.loc[[0, 1, 2], 'embark_town':'age3']  # 0,1,2. satirlar, embark_town daan age
 
 df.loc[0:3, "age"]  # 0'dan 3.satira kadar(3 dahil degil), age sutunu
 df.loc[0:3, col_names]  # 0'dan 3.satira kadar(3 dahil degil), col_names icindeki sutunlar
-
 
 
 
@@ -729,6 +743,8 @@ print(df)
 agg_df["SEGMENT"] = pd.qcut(agg_df["PRICE"], q=4, labels=["D", "C", "B", "A"])
 
 
+
+
 ##########################
 # Sayisal degiskenleri, kategorik degiskenlere cevirme
 ##########################
@@ -849,6 +865,7 @@ pd.concat([df1, df2])  # 2 dataframe oldugu icin,[] liste icinde tanimladik
 pd.concat([df1, df2], ignore_index=True)
 
 
+
 # 2) pd.merge
 df1 = pd.DataFrame({"employees": ["john", "dennis", "mark", "maria"],
                     "group": ["accounting", "engineering", "engineering", "hr"]})
@@ -859,6 +876,7 @@ df2 = pd.DataFrame({"employees": ["mark", "john", "dennis", "maria"],
 
 df3 = pd.merge(df1, df2, how="inner", on="employees")
 df3
+
 
 
 # Amac: her calisanin mudur bilgisine de  erismek
@@ -891,8 +909,8 @@ df6
 
 # Katmanli bir sekilde, veri gorsellestirme saglar (ust uste 2 farkli veriyi farkli cizgilerle grafik yapabilir)
 
-# Kategorik degisken var ise:  Sütun grafik, Countplot bar
-# Sayisal degisken var ise:   Histogram, Boxplot
+# Kategorik degisken var ise:   Sütun grafik, Countplot bar
+# Sayisal degisken var ise:     Histogram, Boxplot
 
 
 #####################################
@@ -1708,6 +1726,10 @@ for col in num_cols:
 
 
 ### 5) Korelasyon Analizi (Analysis of Correlation)
+
+# 2 degisken arasndaaaki iliskiyi gosterir
+# -1 ve 1 arasindadir
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -1717,14 +1739,17 @@ pd.set_option("display.max_columns", None)
 pd.set_option("display.width", 500)
 
 # csv dosyalarini okuma
-df = pd.read_csv("/Users/gozdebarin/Desktop/miuul/pythonProgramlama/python_for_data_science/data_analysis_with_python/datasets/breast_cancer.csv")
+df = pd.read_csv("/Users/gozdemadendere/Desktop/PycharmProjects/Python_Programming_Project/datasets/breast_cancer.csv")
 df = df.iloc[:, 1:-1]
 df.head()
 
 # Amacimiz, yuksek korelasyonlu degiskenlerden bazilarini disarda birakabilmek
 # Sadece bir analiz araci olarak kullanmaliyiz.
 # Genelde birbiriyle yuksek korelasyonlu degiskenleri beraber kullanmamayi tercih ederiz,
-# Cunku zaten ayni seyi ifade ederler
+# Cunku zaten ayni seyi ifade ederler !!! Yani modelde yanlilik yaparlar !!!
+# Peki hangisini elimine ederim, neye gore?
+# Hedef degiskenle korelasyonu daha az olani delimine edebiliriz, veya NAN degeri daha cok olani elimine edebiliriz.
+
 
 num_cols = [col for col in df.columns
             if df[col].dtype in [int, float]]
