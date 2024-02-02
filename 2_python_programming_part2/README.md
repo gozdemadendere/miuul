@@ -7,13 +7,6 @@
 - Advanced Functional Exploratory Data Analysis
 
 _____________________________
-### 5. Pandas CheatSheet
-
-
-
-
-
-_____________________________
 
 #### My Medium Articles about these topics:
 
