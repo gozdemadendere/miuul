@@ -86,14 +86,16 @@ sns.set_style("white")
 # Grafik bilgileri
 sns.countplot(data=df,
               x="brand",
-              order=quantity_ranking.index,  # markaları sıralı olarak belirtir
-              palette="viridis")
+              order=quantity_ranking.index,    # markaları quantity_ranking df sine gore sıralı olarak belirtir
+              hue="brand",                     # x eksenindeki markalara göre renklendirme
+              palette="viridis",
+              legend=False)                    # renk legendasını kaldırır
 
 # Baslik bilgileri
 plt.title("Product Quantity by Brand", fontsize=25)
 plt.xlabel('Brand', fontsize=22)
 plt.ylabel('Product quantity', fontsize=22)
-plt.xticks(rotation=45)  # x eksenindeki etiketleri 45 derece döndürür
+plt.xticks(rotation=45)                        # x eksenindeki etiketleri 45 derece döndürür
 
 plt.show()
 
@@ -102,8 +104,6 @@ plt.show()
 
 ##### 2. YOL | barplot : x="brand" ve ek olarak y="revenue" / "price" tanimlayabiliriz. Bu da bize brand e ait revenue/price lari getirir.
 
-# Markalari revenue ya gore buyukten kucuge siralamak icin:
-revenue_ranking = df.groupby("brand").agg({"revenue": "sum"}).sort_values(by="revenue", ascending=False)
 
 # Satir sutun boyutlari
 plt.figure(figsize=(12, 12))
@@ -116,14 +116,16 @@ sns.set_style("white")
 sns.barplot(data=df,
             x="brand",
             y="revenue",
-            order=revenue_ranking.index,
-            palette="viridis")
+            hue="brand",                     # x eksenindeki markalara göre renklendirme
+            palette="viridis",
+            dodge=False,                     # Çubukları üst üste binme şeklinde gösterir)
+            errorbar=None)                   # Barlarin uzerindeki güven aralığı hatlari cubuklarini kaldırmak icindir)
 
 # Baslik bilgileri
 plt.title("Total Revenue by Brand", fontsize=25)
 plt.xlabel('Brand', fontsize=22)
 plt.ylabel('Total Revenue', fontsize=22)
-plt.xticks(rotation=45)       #x eksenindeki  etiketleri 45 derece döndür
+plt.xticks(rotation=45)                      # x eksenindeki  etiketleri 45 derece döndür
 
 plt.show()
 
@@ -194,7 +196,6 @@ plt.pie(brand_quantity,
 hole = plt.Circle((0, 0), 0.5, facecolor='white')
 plt.gcf().gca().add_artist(hole)
 
-
 # Baslik bilgileri
 plt.axis('equal')  # Dairesel çizim sağlar
 plt.title("Brand Based Quantities", fontsize=20)
@@ -212,6 +213,7 @@ plt.show()
 
 # Sutun satir boyutlari
 plt.figure(figsize=(12, 12))
+sns.set_style("white")
 
 # Grafik bilgileri
 sns.countplot(data=df,
@@ -297,7 +299,7 @@ sns.lineplot(data=df,
              color="green")
 
 plt.title("Price vs Unit price", fontsize=17)
-plt.xlabel ("Month", fontsize=15)
-plt.ylabel ("Unit price", fontsize=15)
+plt.xlabel("Month", fontsize=15)
+plt.ylabel("Unit price", fontsize=15)
 
 plt.show()
