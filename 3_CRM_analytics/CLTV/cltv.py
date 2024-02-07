@@ -2,25 +2,25 @@
 # CUSTOMER LIFETIME VALUE (Müşteri Yaşam Boyu Değeri)
 ##################################################################################
 
-# CLTV, bir müşterinin bir şirketle olan ilişkisi boyunca yapacağı toplam tahmini geliri ifade eder.
-# Sirketlerin müşterileriyle ilişkilerini yönetmelerine ve pazarlama stratejilerini desteklemmerinde yardımcı olur.
+# Customer Lifetime Value, bir müşterinin bir şirketle olan ilişkisi boyunca, bu şirkete kazandıracağı parasal değerdir.
 
+# Sirketlerin müşterileriyle ilişkilerini yönetmelerine ve pazarlama stratejilerini desteklemelerine yardımcı olur.
 
 # Müşteri yaşam döngüsü optimizasyonları : Müşteriler ile kurulan iletişimi ya da etkileşimi görsel teknikler ile ifade edip
 # bunları çeşitli temel performans göstergeleri (KPI) ile takip edilebilir forma getirip takip etme imkânı sağlayan kavramlardir.
 
 
 
-###### CLTV = (Customer Value / Churn Rate) x Profit Margin
+### CLTV = (Customer Value / Churn Rate) x Profit Margin
 
-### Customer Value = AVERAGE Order Value x Purchase Frequency        (Müşteri Değeri = Ort Sipariş Değeri x Satın Alma Sıklığı)
+# Customer Value = AVERAGE Order Value x Purchase Frequency        (Müşteri Değeri = Ort Sipariş Değeri x Satın Alma Sıklığı)
 # Average Order Value = Total Price / Total Transaction              (Ort Sipariş Değeri = Total Harcama / Total İşlem/Fatura Sayisi)
 # Purchase Frequency = Total Transaction / Total Number of Customers (Satın Alma Sıklığı = Total İşlem Sayisi/ Total Müşteri Sayısı)
 
-### Churn Rate = 1 - Repeat Rate   (Musteri terk orani)
+# Churn Rate = 1 - Repeat Rate   (Musteri terk orani) (Churn Rate: tum kitleden gelir, bireysel hesaplanmaz)
 # Repeat Rate = 1den fazla alisveris yapan müşteri sayısı / Total Müşteri Sayısı
 
-### Profit Margin = Total Price * 0.10
+# Profit Margin = Total Price * 0.10  (0.10 sirketinn belirledigi kar marji)
 
 
 
@@ -28,7 +28,7 @@
 ## !! NOTE :
 # Monetory:   RFM de TOPLAM harcama tutari, CLTV da AVERAGE Harcama tutari!
 # Frequency:  RFM ve CLTV de toplam islem sayisi (fatura sayisi)
-# Recency:    RFM de (analiz tarihi-son satin alma tarihi), CLTV da (musteri son satin alma-ilk satin alma) (yani CLTV de musteri ozelindedir)
+# Recency:    RFM de (analiz tarihi-son satin alma tarihi), CLTV da (musteri son satin alma-ilk satin alma) (yani CLTV'de musteri ozelindedir)
 
 
 
@@ -37,6 +37,8 @@
 # PROJECT : CUSTOMER LIFETIME VALUE (Müşteri Yaşam Boyu Değeri)
 ##################################################################################
 
+
+#### PROJE ADIMLARI ####
 # 1. İş Problemi (Business Problem)
 # 2. Veriyi Anlama (Data Understanding)
 # 3. Veri Hazırlama (Data Preparation) ('total_transaction', 'total_unit', 'total_price' sutunlarini olusturma)
@@ -111,6 +113,32 @@ df["Description"].nunique()
 
 # essiz fatura sayisi nedir?
 df["Invoice"].nunique()
+
+
+################################################
+# Exploratory Data Analysis Function : Displays basic characteristics of the DataFrame.
+
+def check_df(dataframe, head=5):
+    print("__________________________________________________________________ FIRST 5 ROWS __________________________________________________________________ ")
+    print(dataframe.head(head))
+    print("__________________________________________________________________  LAST 5 ROWS __________________________________________________________________ ")
+    print(dataframe.tail(head))
+    print("__________________________________________________________________  DATA SHAPE ___________________________________________________________________ ")
+    print(dataframe.shape)
+    print("_________________________________________________________________  GENERAL INFO __________________________________________________________________ ")
+    print(dataframe.info())
+    print("__________________________________________________________________  NULL VALUES __________________________________________________________________ ")
+    print(dataframe.isnull().sum().sort_values(ascending=False))
+    print("_______________________________________________________________  DUPLICATED VALUES _______________________________________________________________ ")
+    print(dataframe.duplicated().sum())
+    print("____________________________________________________________________ DESCRIBE ____________________________________________________________________ ")
+    print(dataframe.describe([0, 0.05, 0.1, 0.25, 0.50, 0.95, 0.99, 1]).T)
+
+# Use the function
+check_df(df)
+
+################################################
+
 
 
 
@@ -335,8 +363,7 @@ cltv_c.sort_values(by="cltv", ascending=False).tail()
 cltv_c.groupby("segment").agg({"count", "mean", "sum"})
 
 
-# csv dosyasi olarak kaydedelim
-# (kodu calistir, Project te CRM_Analytics sag tikla, Reload from Disk tikla, dosya orada)
+# csv dosyası olarak kaydedelim.  (kodu çalıştır, Project'te CRM_Analytics sağ tıkla, Reload from Disk tıkla, dosya orada)
 cltv_c.to_csv("cltc_c.csv")
 
 # 18102.00000       A
