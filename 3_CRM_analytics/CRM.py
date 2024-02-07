@@ -1,65 +1,45 @@
-
 ########################################################################################
 # CRM : Customer Relationship Management (Müşteri İlişkileri Yönetimi)
 ########################################################################################
 
-## Müşteri Memnuniyeti
-# Müşteri memnuniyetini artırmak için müşterilerle daha etkili ve kişiselleştirilmiş bir iletişim sağlar.
+# CRM Analitiği / Müşteri Analitiği :
+# Müşteri süreçlerini veri odaklı yönetmektir.
+# Müşteri verilerini analiz ederek, müşteri tercihlerini ve alışkanlıklarını anlamamızı sağlar.
 
-## Satış ve Gelir Artışı:
-# Müşteriye odaklanma ve müşteri ihtiyaçlarını anlama, satışları artırır ve geliri artırır.
-# Sadık müşterilerin tutulması, tekrarlayan satışlar ve ağzı açık referanslar bu artışın temelini oluşturur.
-
-## Stratejik Kararlar için Veri:
-# Müşteri verileri, stratejik kararlar almak için değerli bir kaynaktır.
-# Bu verilere dayanarak işletme stratejilerini ve hedeflerini belirleyebiliriz.
-
-
+# Müşteri Memnuniyeti:            CRM müşteri ile daha etkili ve kişiselleştirilmiş bir iletişim sağlar, bu da müşteri memnuniyetini artırır.
+# Satış ve Gelir Artışı:          Müşteriye odaklanmak ve müşteri ihtiyaçlarını anlamak, satışları ve geliri artırır.
+# Stratejik Kararlar için Veri:   Müşteri verileri, şirket stratejileri ve hedefleri belirlemek için değerli bir kaynaktır.
 
 
 ########################################################################################
-# CRM Analitiği / Müşteri Analitiği
-########################################################################################
-
-# Müşteri sureclerini verilere dayali olarak yurutmektir.
-# Müşteri verilerini analiz etmek eğilimleri, tercihleri ve davranışları anlamamizi saglar.
-# Bu bilgilerle daha iyi pazarlama stratejileri oluşturabilir ve satış potansiyelini artırabiliriz.
-
-
-
-########################################################################################
-# CRM Kavramları / CRM Uygulamalari
+# CRM Kavramları / CRM Uygulamaları
 ########################################################################################
 
 ### Müşteri Yaşam Döngüsü Yönetimi   (Customer Lifecycle / Journey / Funnel)
 # Müşterinin şirketle etkileşiminin başından sonuna kadar olan süreci yönetmeyi amaçlar.
 # Bu, müşteri edinme, müşteri bağlılığı artırma ve müşteri kaybını azaltma stratejilerini içerir.
-# Ornek: musterinin web sitesini ziyaret etmesi, uye olmasi, alisveris yapmasi, satis sonrasi: yorum alma 2. alisveris vb..
+# Örnek: Mağaza veya web sitesini ziyaret, üyelik, alışveriş, yorumlar, tekrar alışveriş vb.
 
 
-
-### Müşteri Iletişimi    (Dil, renk, gorseller, kampanyalar)
+### Müşteri Iletişimi    (Dil, renk, göoseller, kampanyalar)
 # Müşterilerin bir marka veya işletmeyle olan her etkileşimini yönetmeyi ve iyileştirmeyi amaçlar.
 # Müşteri memnuniyetini artırarak, müşteri sadakatini güçlendirir.
-
-
+# Örnek: Dil, renk, göoseller, kampanyalar
 
 
 ### Müşteri Edinme / Müşteri Bulma Çalışmaları (Sosyal medya, billboard, afiş vb ile)
-#  İşletmenin, potansiyel müşterileri farklı kanallar aracılığıyla çekmek ve ürün veya hizmetlerini tanıtmak için yürüttüğü pazarlama ve reklam faaliyetleridir.
+# Potansiyel müşterilerin çeşitli kanallar aracılığıyla çekilmesini ve ürün/hizmet tanıtımının yapılmasını içeren pazarlama ve reklam faaliyetleridir.
+# Örnek: Sosyal medya, billboardlar, afişler vb.
 
 
-
-### Müşteriyi Elde Tutma Çalışmaları (Musteri Terk / Customer Churn)
+### Müşteriyi Elde Tutma Çalışmaları (Müşteri Terk / Customer Churn)
 # İşletmenin, mevcut müşterileriyle ilişkileri sürdürmek ve onları kaybetmemek için yürüttüğü stratejilerdir.
-
 
 
 ### Çapraz Satış (Cross-Sell), Üst Satış (Up-Sell)
 # Müşterilere, satın aldıkları ürün veya hizmetle ilişkili ek ürün veya hizmetleri satmayı ve böylece müşteri değerini artırmayı amaçlayan satış stratejileridir.
 # Çapraz satış, müşterinin ihtiyaçlarına uygun farklı ürün veya hizmetleri önerirken (tamamlayici urun),
 # üst satış daha yüksek fiyatlı veya daha kapsamlı bir ürün veya hizmet önermeyi içerir (urunun daha buyugunu/daha pahalisini satmak gibi..).
-
 
 
 ### Müşteri Segmentasyon Çalışmaları
@@ -78,8 +58,7 @@
 # KPI : KEY PERFORMANCE INDICATORS : Temel Performans Gostergeleri
 ########################################################################################
 
-### KPI:
-# Sirket, departman, ya da calisanlarin performanslarini takip etmek icin kullanilan temel performans gostergeleridir.
+### KPI: Sirket, departman, ya da calisanlarin performanslarini takip etmek icin kullanilan temel performans gostergeleridir.
 # Customer Acquisition Rate  (Musteri Kazanma Orani)
 # Customer Retention Rate    (Musteri Elde Tutma Orani)
 # Customer Churn Rate        (Musteri Terk Orani)
@@ -90,16 +69,15 @@
 
 
 
-
 ########################################################################################
 # Cohort Analizi (Analysis of Cohort)
 ########################################################################################
 
 ### Cohort :
-# Ortak ozelliklere sahip bir grup insan.
+# Ortak özelliklere sahip bir grup insan.
 
 ### Cohort analizi :
-# Bir şirketin müşterilerini belirli gruplara veya kohortlara ayırarak
+# Bir şirketin müşterilerini belirli gruplara veya kohortlara ayırarak (belirli ozelliklere sahip insanlar)
 # bu grupların davranışlarını ve performanslarını zaman içinde izlemeyi amaçlayan bir analiz yöntemidir.
 
 ### Cohort analizi: müşteri sadakati, müşteri yaşam değeri, Customer Retention Rate (Musteri Elde Tutma Orani)
