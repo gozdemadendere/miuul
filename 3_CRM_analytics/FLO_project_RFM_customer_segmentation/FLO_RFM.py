@@ -29,6 +29,7 @@
 ###############################################################
 
 # FLO, müşterilerini satın alma alışkanlıkları üzerinden segmentlere ayırmak ve bu segmentler özelinde stratejiler geliştirmek istiyor.
+# Ayrıca aşağıda, 7. adımda "Project's Business Questions" bölümunde yer alan soruların cevaplanması bekleniyor.
 
 # Veri Seti Hikayesi
 # Veri seti, son alışverişlerini 2020 - 2021 yıllarında OmniChannel (hem online hem offline alışveriş yapan) olarak yapan müşterilerin geçmiş alışveriş davranışlarından elde edilen bilgilerden oluşmaktadır.
@@ -281,7 +282,9 @@ new_df.to_csv("cant_loose_customers.csv")
 # 7. PROJECT'S BUSINESS QUESTIONS
 ##################################################################################
 
+##########
 # GÖREV 1:
+##########
 # Segmentlerin recency, frequency ve monetary ortalamalarını inceleyiniz.
 rfm.groupby("segment").agg({"recency": ["mean", "count"], "frequency": ["mean", "count"], "monetary": ["mean", "count"]})
 # veya rfm[["recency", "frequency", "monetary", "segment"]].groupby("segment").agg(["mean", "count"])
@@ -302,7 +305,10 @@ rfm.groupby("segment").agg({"recency": ["mean", "count"], "frequency": ["mean", 
 
 
 
+
+##########
 # GÖREV 2:
+##########
 # FLO bünyesine yeni bir kadın ayakkabı markası dahil ediyor. Bu markanın ürün fiyatları genel müşteri tercihlerinin üstünde.
 # Bu nedenle markanın tanıtımı ve ürün satışları için ilgilenecek profildeki müşterilerle özel olarak iletişime geçilmek isteniliyor.
 # Bu müşterilerin "sadık müşterilerden (champions, loyal_customers) ve kadın kategorisinden alışveriş yapan kişiler" olması planlandı.
@@ -328,7 +334,10 @@ merged_df.to_csv("yeni_marka_hedef_müşteri_id.csv")
 
 
 
+
+##########
 # GÖREV 3:
+##########
 # FLO Erkek ve Çoçuk ürünlerinde %40'a yakın indirim planlanmaktadır.
 # Bu indirimle ilgili kategorilerle ilgilenen "geçmişte iyi müşterilerden olan ama uzun süredir alışveriş yapmayan"
 # ve "yeni gelen müşteriler" özel olarak hedef alınmak isteniliyor.
