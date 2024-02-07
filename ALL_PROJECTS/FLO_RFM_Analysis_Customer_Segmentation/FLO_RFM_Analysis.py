@@ -28,7 +28,7 @@
 # 1. İş Problemi (Business Problem)
 ###############################################################
 
-# FLO, müşterilerini satın alma alışkanlıkları üzerinden segmentlere ayırmak ve bu segmentler özelinde stratejiler geliştirmek istiyor.
+# Türkiye ayakkabı pazarının öncü firmalarından FLO, müşterilerini satın alma alışkanlıkları üzerinden segmentlere ayırmak ve bu segmentler özelinde stratejiler geliştirmek istiyor.
 # Ayrıca aşağıda, 7. adımda "Project's Business Questions" bölümunde yer alan soruların cevaplanması bekleniyor.
 
 # Veri Seti Hikayesi
@@ -224,10 +224,10 @@ rfm["RFM_SCORE"] = (rfm['recency_score'].astype(str) + rfm['frequency_score'].as
 
 
 # Örnek: Aşağıdaki kodun çıktısı bize hangi RFM segmentini verir? : champions! (Recency=5, Frequency=5)
-rfm.loc[rfm["RFM_SCORE"] == "55", :]
+rfm.loc[rfm["RF_SCORE"] == "55", :]
 
 # Örnek: Aşağıdaki kodun çıktısı bize hangi RFM segmentini verir? : hibernating! (Recency=1, Frequency=1)
-rfm.loc[rfm["RFM_SCORE"] == "11", :]
+rfm.loc[rfm["RF_SCORE"] == "11", :]
 
 
 
@@ -254,9 +254,9 @@ seg_map = {
 }
 
 
-### 2) Yeni bir segment sütunu olustur: RFM_SCORE sütunundaki değişkenleri, seg_map içine bakarak değiştir
+### 2) Yeni bir segment sütunu olustur: RF_SCORE sütunundaki değişkenleri, seg_map içine bakarak değiştir
 # regex=True : eğer seg_map içindeki keys & values düzenli ifadeler ise, bu desenleri eşleştir
-rfm['segment'] = rfm['RFM_SCORE'].replace(seg_map, regex=True)
+rfm['segment'] = rfm['RF_SCORE'].replace(seg_map, regex=True)
 
 ### 3) csv dosyası olarak kaydedelim.  (kodu çalıştır, Project'te CRM_Analytics sağ tıkla, Reload from Disk tıkla, dosya orada)
 rfm.to_csv("rfm.csv")
@@ -339,8 +339,7 @@ merged_df.to_csv("yeni_marka_hedef_müşteri_id.csv")
 # GÖREV 3:
 ##########
 # FLO Erkek ve Çoçuk ürünlerinde %40'a yakın indirim planlanmaktadır.
-# Bu indirimle ilgili kategorilerle ilgilenen "geçmişte iyi müşterilerden olan ama uzun süredir alışveriş yapmayan"
-# ve "yeni gelen müşteriler" özel olarak hedef alınmak isteniliyor.
+# Bu indirimle ilgili kategorilerle ilgilenen "geçmişte iyi müşterilerden olan ama uzun süredir alışveriş yapmayan" ve "yeni gelen müşteriler" özel olarak hedef alınmak isteniliyor.
 # Uygun profildeki müşterilerin id'lerini csv dosyasına indirim_hedef_müşteri_ids.csv olarak kaydediniz.
 
 rfm.head()  # burada segment sutununda, cant_loose, at_Risk ve new_customers olanlar
@@ -359,7 +358,6 @@ merged_df = pd.merge(new_df[["customer_id", "segment"]], erkek_cocuk_df[["custom
 
 ### csv dosyası olarak kaydedelim.
 merged_df.to_csv("indirim_hedef_müşteri_ids.csv")
-
 
 
 
