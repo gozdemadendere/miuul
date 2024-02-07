@@ -44,8 +44,7 @@
 # 1. İş Problemi (Business Problem)
 ##################################################################################
 
-# Türkiye ayakkabı pazarının öncü firmalarından FLO, müşterilerini satın alma alışkanlıkları üzerinden segmentlere ayırmak ve bu segmentler özelinde stratejiler geliştirmek istiyor.
-# Ayrıca aşağıda, 7. adımda "Project's Business Questions" bölümunde yer alan soruların cevaplanması bekleniyor.
+# Türkiye ayakkabı pazarının öncü firmalarından FLO, müşterilerinin şirkete sağlayacağı gelirin tahmin edilmesini ve bu CLTV değerlerine göre segmentlere ayrilmasını istiyor.
 
 # Yaklaşık 20.000 müşteriye ait bilgileri içeren veri seti, son alışverişlerini 2020-2021 yıllarında OmniChannel (hem online hem offline alışveriş) olarak yapan müşterilerin geçmiş alışveriş davranışlarından elde edilen bilgilerden oluşmaktadır.
 
@@ -450,7 +449,7 @@ six_months_max_cltv_customers.groupby("cltv_segment").agg({"exp_sales_6_month": 
 
 
 ################################################################
-# Yönetime, CLTV Değerleri kapsamında kısa kısa aksiyon önerilerinde bulununuz.
+# Yönetime, CLTV Değerleri Kapsamında Aksiyon Önerileri:
 ################################################################
 
 ### A Segmenti (6 Ay için CLTV 1,857,360 - Beklenen Satış Adetleri 7,889):
