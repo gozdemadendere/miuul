@@ -1,5 +1,4 @@
-## PROJECT : FLO | RFM Analizi ile Müşteri Segmentasyonu 
-#### (Customer Segmentation with RFM Analysis)
+## FLO | RFM Analizi ile Müşteri Segmentasyonu  (Customer Segmentation with RFM Analysis)
 
 RFM analizi; Recency, Frequency, Monetary metriklerinden faydalanarak, müşteri segmentasyonu için kullanılan bir tekniktir.
 
@@ -12,7 +11,7 @@ Müşterilerin satın alma alışkanlıkları üzerinden segmentlere ayrılması
 ______________________________
 
 
-### 1. İŞ PROBLEMI / PROJE HEDEFİ
+### 1. İŞ PROBLEMİ / PROJE HEDEFİ
 
 Türkiye ayakkabı pazarının öncü firmalarından FLO, müşterilerini satın alma alışkanlıkları üzerinden segmentlere ayırmak ve bu segmentler özelinde stratejiler geliştirmek istiyor.
 
@@ -66,7 +65,6 @@ Bu indirimle ilgili kategorilerle ilgilenen "geçmişte iyi müşterilerden olan
 Bu profildeki müşterilerin id numaralarını bulunuz.
 
 <img width="600" alt="Screen Shot 2024-02-07 at 12 09 42 PM" src="https://github.com/gozdemadendere/miuul_data_science_bootcamp/assets/90986708/2e3f94fb-2677-4932-b06e-b0994ca90052">
-
 
 
 
