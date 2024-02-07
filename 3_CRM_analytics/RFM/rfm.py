@@ -1,44 +1,22 @@
-
 ##################################################################################
 # RFM : Recency, Frequency, Monetary
 ##################################################################################
 
-### RFM analizi, müşteri segmentasyonu için kullanılan bir tekniktir.
+# RFM analizi; Recency, Frequency, Monetary metriklerinden faydalanarak, müşteri segmentasyonu için kullanılan bir tekniktir.
+# Müşterilerin satın alma alışkanlıkları üzerinden segmentlere ayrılmasını, ve bu segmentler özelinde stratejiler geliştirilmesini sağlar.
 
-### Müşterilerin satın alma alışkanlıkları üzerinden segmentlere ayrılmasını ve
-# bu segmentler özelinde stratejiler geliştirilebilmesini sağlar.
+# Recency   = Analiz tarihi - Müşterinin son satın alma tarihi
+# Frequency = Müşterinin toplam satın alma sayısı   (toplam işlem veya fatura sayısı)
+# Monetary  = Müşterinin TOPLAM Harcama tutarı
 
-### RFM : Recency, Frequency, Monetary  (Yenilik, Sıklık, Miktar)
-# RFM analizi, bu üç metriği bir araya getirerek müşterileri farklı segmentlere ayırır.
+## KEY NOTES !!!
+# Frequency ve ardından Recency daha önemli metriklerdir.
+# RFM skorları üzerinden segmentler oluşturulurken, Monetary metriği kullanılmaz! Çünkü zaten Recency ve Frequency varsa, otomatik olarak Monetary de gelir.
 
+# Monetory:   RFM'de TOPLAM harcama tutarı, CLTV'de AVERAGE harcama tutarı şeklinde hesaplanır!
+# Frequency:  RFM ve CLTV'de toplam işlem sayısı (fatura sayısı)
+# Recency:    RFM'de Analiz tarihi - Müşteri son satın alma tarihi, CLTV'de  Müşteri son satın alma- Müşteri ilk satın alma) (yani CLTV'de müşteri özeline aittir)
 
-
-###  Recency (Yenilik)  (Az olan daha iyi)
-# Recency = Analiz Tarihi - Müşterinin Son Alışveriş Tarihi
-# "Daha yeni etkileşimler" veya satın almalar, genellikle daha değerli müşterileri veya potansiyel olarak daha sadık müşterileri gösterir.
-
-###  Frequency (Sıklık) (Cok olan daha iyi)
-# Frequency = Toplam Satın Alma Sayısı (Islem Sayisi / Fatura Sayisi)
-# "Daha sık etkileşimler" veya satın almalar, genellikle daha sadık veya daha aktif müşterileri gösterir.
-
-###  Monetary (Miktar) (Cok olan daha iyi)
-# Monetary = TOPLAM Harcama tutari
-# "Daha yüksek harcamalar" genellikle daha değerli veya daha karlı müşterileri gösterir.
-
-
-### KEY NOTES !!!
-# Frequency ve ardindan Recency daha önemli metriklerdir.
-# RFM skorları üzerinden segmentler oluşturulurken, Monetary metriği kullanılmaz !!!
-# Cunku zaten Recency ve Frequency varsa, otomatik olarak Monetary de gelir.
-
-# Mesela, Frequency degeri 5 Recency 5 olan musteri: "champions" grubunda, cunku hem sik alisveris var, hem de guncel musteridir.
-# Mesela, Frequency degeri 5 Recency 1 olan musteri: "cant lose them" grubunda, cunku sik alisveris yapiyor, ama bayagidir yapmamis!
-
-
-## !! NOTE :
-# Monetory:   RFM de TOPLAM harcama tutari, CLTV da AVERAGE Harcama tutari!
-# Frequency:  RFM ve CLTV de toplam islem sayisi (fatura sayisi)
-# Recency:    RFM de (analiz tarihi-son satin alma tarihi), CLTV da (musteri son satin alma-ilk satin alma) (yani CLTV de musteri ozelindedir)
 
 
 
@@ -47,10 +25,11 @@
 # PROJECT : Customer Segmentation with RFM   (RFM Ile Müşteri Segmentasyonu)
 ##################################################################################
 
+#### PROJE ADIMLARI ####
 # 1. İş Problemi (Business Problem)
 # 2. Veriyi Anlama (Data Understanding)
 # 3. Veri Hazırlama (Data Preparation)
-# 4. RFM Metriklerinin Hesaplanması (Calculating RFM Metrics) ('recency', 'frequency', 'monetary' sutunlarini olusturma)
+# 4. RFM Metriklerinin Hesaplanması (Calculating RFM Metrics: Recency, Frequency, Monetary sütunlarını olusturma)
 # 5. RFM Skorlarının Hesaplanması (Calculating RFM Scores)
 # 6. RFM Segmentlerinin Oluşturulması ve Analiz Edilmesi (Creating & Analysing RFM Segments)
 # 7. BONUS: Tüm Sürecin Fonksiyonlaştırılması
@@ -64,21 +43,16 @@
 # 1. İş Problemi (Business Problem)
 ##################################################################################
 
-# Bir e-ticaret şirketi müşterilerini segmentlere ayırıp,
-# bu segmentlere göre pazarlama stratejileri belirlemek istiyor.
-
+# Bir e-ticaret şirketi müşterilerini segmentlere ayırıp, bu segmentlere göre pazarlama stratejileri belirlemek istiyor.
 
 # Veri Seti Hikayesi
 # https://archive.ics.uci.edu/ml/datasets/Online+Retail+II
 
-# Online Retail II isimli veri seti, İngiltere merkezli online bir satış mağazasının
-# 01/12/2009 - 09/12/2011 tarihleri arasındaki satışlarını içeriyor.
-# Bu sirket hediyelik esya satiyor, musterileri genelde kurumsal toptancilar.
-# Kurumsal musterileri segmentlere ayirmak ve buna gore ilgilenmek istiyor.
-
+# Online Retail II isimli veri seti, İngiltere merkezli online bir satış mağazasının 01/12/2009 - 09/12/2011 tarihleri arasındaki satışlarını içeriyor.
+# Bu şirket hediyelik eşya satıyor, müşterileri genellikle kurumsal toptancılardır. Kurumsal müşterileri segmentlere ayırmak ve buna göre ilgilenmek istiyor.
 
 # Değişkenler
-# InvoiceNo:    Fatura numarası. Her işleme yani faturaya ait eşsiz numara. C ile başlıyorsa iptal edilen işlem.
+# InvoiceNo:    Fatura numarası. Her işleme yani faturaya ait eşsiz numara. C ile başlıyorsa iptal edilen işlemdir.
 # StockCode:    Ürün kodu. Her bir ürün için eşsiz numara.
 # Description:  Ürün ismi
 # Quantity:     Ürün adedi. Bir faturada 1den fazla urun yer alabilir.
@@ -96,6 +70,7 @@
 # 2. Veriyi Anlama (Data Understanding)
 ##################################################################################
 
+# Import libraries
 import datetime as dt
 import pandas as pd
 
@@ -105,13 +80,13 @@ pd.set_option("display.precision", 3)         # float türündeki sayılarda vir
 # pd.set_option('display.max_rows', None)
 # pd.set_option('display.float_format', lambda x: '%.3f' % x)
 
+# Read the data from Excel
 df_ = pd.read_excel("/Users/gozdemadendere/Desktop/PycharmProjects/CRM_Analytics/datasets/online_retail_II.xlsx", sheet_name="Year 2009-2010")
 df = df_.copy()
 
 df.head()
 df.shape
 df.isnull().sum()
-
 
 # essiz urun sayisi nedir?
 df["Description"].nunique()
@@ -127,8 +102,29 @@ df.groupby("Description").agg({"Quantity": "sum"}).sort_values("Quantity", ascen
 df["Invoice"].nunique()
 
 
+################################################
+# Exploratory Data Analysis Function : Displays basic characteristics of the DataFrame.
 
+def check_df(dataframe, head=5):
+    print("__________________________________________________________________ FIRST 5 ROWS __________________________________________________________________ ")
+    print(dataframe.head(head))
+    print("__________________________________________________________________  LAST 5 ROWS __________________________________________________________________ ")
+    print(dataframe.tail(head))
+    print("__________________________________________________________________  DATA SHAPE ___________________________________________________________________ ")
+    print(dataframe.shape)
+    print("_________________________________________________________________  GENERAL INFO __________________________________________________________________ ")
+    print(dataframe.info())
+    print("__________________________________________________________________  NULL VALUES __________________________________________________________________ ")
+    print(dataframe.isnull().sum().sort_values(ascending=False))
+    print("_______________________________________________________________  DUPLICATED VALUES _______________________________________________________________ ")
+    print(dataframe.duplicated().sum())
+    print("____________________________________________________________________ DESCRIBE ____________________________________________________________________ ")
+    print(dataframe.describe([0, 0.05, 0.1, 0.25, 0.50, 0.95, 0.99, 1]).T)
 
+# Use the function
+check_df(df)
+
+################################################
 
 
 
@@ -144,62 +140,66 @@ df["TotalPrice"] = df["Quantity"] * df["Price"]
 df.groupby("Invoice").agg({"TotalPrice": "sum"}).head()
 
 
-df.isnull().sum()
 ### 2) Customer ID ve Description da, NaN degerler var.
+df.isnull().sum()
+
 # Customer ID' si olmayan satirlar, burada onemsiz ve Description da cok az eksik deger var. Bunlari ucurabiliriz.
 df.dropna(inplace=True)  # eksik değer (NaN) içeren satırların silinmesini sağlar
 df.isnull().sum()        # tekrar baktigimizda, eksik deger iceren sutun yoktur
 
 
-# invoice C ile baslayanlar iptal edilen islem demekti
-df.describe().T   # quantity de min de bu iptal/iadelerden kaynakli aykiri degerler oldugunu goruyoruz
+### 3)
+df.describe().T
+# Yorum 1: min quantity ve price 1 veya 1den buyuk olmali, ama quantity ve price da iptal/iadelerden kaynakli aykiri degerler oldugunu goruyoruz
 
-### 3) invoice C ile baslayanlari (iptal urunleri) disarida birakalim
+# invoice C ile baslayanlari (iptal urunleri) disarida birakalim
 df = df.loc[~df["Invoice"].str.contains("C", na=False)]   # na=False parametresi, eksik değerlerin (NaN) kontrol edilmemesini sağlar
 
+df.describe().T
+# Yorum 1: min quantity ve price 1 veya 1den buyuk olmali, totalprice ici min degeri 0, o 1den buyuk olmali
 
-df.describe().T   # iptal edilen urunleri sildigimiz icin, daha mantikli gorunuyor
+# totalprice >= 1 alalim
+df = df.loc[df["TotalPrice"] >= 1, :]
 
-
-
+df.describe().T
+# Yorum 1: min quantity ve price 1 veya 1den buyuk olmali,artik oyle gorunuyor
+# Yorum 2: %75 ile %100 yani max arasinda asiri fark olmamali, kontrol edelim
+# Yorum 3: ornegin online'da mean 14, %50lik deger 6, tutarli olabilir
 
 
 
 
 
 ##################################################################################
-# 4. RFM Metriklerinin Hesaplanması (Calculating RFM Metrics)
+# 4. RFM Metriklerinin Hesaplanması (Calculating 3 RFM Metrics)
 ##################################################################################
 
-# Recency:   analizin yapildigi tarih - alisveris tarihi
-# Frequency: toplam satin alma
-# Monetary:  toplam harcama tutari
+# Recency:    Analiz tarihi - Müşterinin son alışveriş tarihi
+# Frequency:  Müşterinin toplam satın alma sayısı  (Toplam işlem/fatura sayısı)
+# Monetary:   Müşterinin TOPLAM Harcama tutarı
 
 
-df.head()
+### 1) Analizin yapildigi gunu tanimlayalim, en son satin alma tarihi 11 aralik 2010 ise:
 df["InvoiceDate"].max()    # dataframe deki en son satin alma tarihi !!
-
-
-### 1) Analizin yapildigi gunu tanimlayalim, 11 aralik 2010 ise:
 today_date = dt.datetime(2010, 12, 11)
 type(today_date)
 
 
-### 2) Customer ID ye gore gruplayalim, ve 'recency', 'frequency', 'monetary' hesaplayalim
+### 2) Müşteri özelinde Recency, Frequency ve Monetary metriklerini hesaplayalim.
+
+## Gerekirse Customer ID ye gore gruplayalim, müşterileri tekilleştirelim (Customer ID ler her satirda tek ise, gerek yoktur.)
 # today_date - InvoiceDate.max() >> yani bugunun tarihinden, ilgili musterinin en son satin alma tarihini cikar
-# Invoice.nunique() >> yani ilgili musteriye ait, essiz faatura sayisini ver
-# TotalPrice.sum() >> yani ilgili musteriye ait, toplam price i ver
-rfm = df.groupby('Customer ID').agg({'InvoiceDate': lambda InvoiceDate: (today_date - InvoiceDate.max()).days,
-                                     'Invoice': lambda Invoice: Invoice.nunique(),
-                                     'TotalPrice': lambda TotalPrice: TotalPrice.sum()})
+# Invoice.nunique() >> yani ilgili musteriye ait, essiz fatura sayisini bul
+# TotalPrice.sum() >> yani ilgili musteriye ait, toplam price i bul
 
-# Yani Customer id ye gore gruplandirdik ve musterileri tekillestirdik.
-rfm.head()
+rfm = df.groupby('Customer ID').agg({'InvoiceDate': lambda x: (today_date - x.max()).days,
+                                     'Invoice': lambda x: x.nunique(),
+                                     'TotalPrice': lambda x: x.sum()})
 
 
-### 3) Olusturdugumuz yeni sutun isimlerini 'recency', 'frequency', 'monetary' olarak guncelleyelim
+### 3) Olusturdugumuz yeni metrik isimlerini 'recency', 'frequency', 'monetary' olarak guncelleyelim
 rfm = rfm.rename(columns = {"InvoiceDate": "recency", "Invoice": "frequency", "TotalPrice": "monetary"})
-#veya  rfm.columns = ['recency', 'frequency', 'monetary']
+# veya  rfm.columns = ['recency', 'frequency', 'monetary']
 
 
 ### 4) Genel olarak degerleri kontrol edelim
@@ -212,64 +212,33 @@ rfm = rfm.loc[rfm["monetary"] > 0, :]
 
 
 
-### SONUC:
-# recency, frequency, monetary sutunlarini olusturup hesaplatarak, yeni bir dataframe olusturduk.
-# customer id ye gore gruplandirdik.
-
-
-
-
-
-
-
-
 
 
 ##################################################################################
 # 5. RFM Skorlarının Hesaplanması (Calculating RFM Scores)
 ##################################################################################
 
-## RFM metriklerini RFM skorlarına çevirmedeki amaçlari:
+## RFM metriklerini RFM skorlarına çevirmedeki amaçlar:
 # Farklı ölçek türlerine sahip RFM metriklerini aynı ölçek türüne çevirme
 # RFM metrikleri üzerinde bir nevi standartlaştırma işlemi uygulama
 # RFM metriklerini birbirleri ile kıyaslanabilir formata getirme
 
-## Recency az olmasi daha iyidir, Frequency ve Monetary cok olmasi daha iyidir.
 
-
-### 1)  Yeni bir recency_score sutunu olusturalim: 5 parcaya bolelim
+# Recency, Frequency ve Monetary metriklerini qcut yardımı ile 1-5 arasında skorlara çevirelim
 rfm["recency_score"] = pd.qcut(rfm['recency'], 5, labels=[5, 4, 3, 2, 1])
-
-# Ornegin Recency icin 0-100 arasi degerler var ise: labels=[5, 4, 3, 2, 1]  asagidaki gibi gruplanir:
-# 0-20, 20-40, 40-60, 60-80, 80-100
-
-
-### 2)  Yeni bir frequency_score sutunu olusturalim: 5 parcaya bolelim  (labels i recency a gore tam tersi olusturduk!)
-# rank(method="first") ile : birden fazla öğe aynı değere sahipse, bu öğelerin sıralamasını veri setindeki ilk göründükleri sıraya göre yapar
 rfm["frequency_score"] = pd.qcut(rfm['frequency'].rank(method="first"), 5, labels=[1, 2, 3, 4, 5])
-
-
-### 3)  Yeni bir monetary_score sutunu olusturalim: 5 parcaya bolelim  (labels i recency a gore tam tersi olusturduk!)
 rfm["monetary_score"] = pd.qcut(rfm['monetary'], 5, labels=[1, 2, 3, 4, 5])
 
 
-### 4)  Yeni bir RFM_SCORE sutunu olusturalim: recency_score ve frequency_score degerlerini string olarak yanyana yazdiralim:
+# Yeni bir RFM_SCORE sutunu olusturalim: recency_score ve frequency_score degerlerini string olarak yanyana yazdiralim:
 rfm["RFM_SCORE"] = (rfm['recency_score'].astype(str) + rfm['frequency_score'].astype(str))
 
 
-rfm.describe().T
+# Örnek: Aşağıdaki kodun çıktısı bize hangi RFM segmentini verir? : champions! (Recency=5, Frequency=5)
+rfm.loc[rfm["RFM_SCORE"] == "55", :]
 
-rfm[rfm["RFM_SCORE"] == "55"]
-#rfm.loc[rfm["RFM_SCORE"] == "55", :]
-
-rfm[rfm["RFM_SCORE"] == "11"]
-#rfm.loc[rfm["RFM_SCORE"] == "11", :]
-
-
-
-
-# Aşağıdaki kodun çıktısı bize hangi RFM segmentini verir? : Champions! (Recency=5, Frequency=5)
-# rfm [ rfm [“RFM_SCORE”] == “55” ]
+# Örnek Aşağıdaki kodun çıktısı bize hangi RFM segmentini verir? : hibernating! (Recency=1, Frequency=1)
+rfm.loc[rfm["RFM_SCORE"] == "11", :]
 
 
 
@@ -279,13 +248,9 @@ rfm[rfm["RFM_SCORE"] == "11"]
 ##################################################################################
 # 6. RFM Segmentlerinin Oluşturulması ve Analiz Edilmesi (Creating & Analysing RFM Segments)
 ##################################################################################
-# RFM skorları üzerinden segmentler oluşturulurken, Monetary metriği kullanılmaz !!!
-# Cunku zaten Recency ve Frequency varsa, otomatik olarak Monetary gelir.
 
-### 1) RFM Score larina gore Segment olusturma
-
-# regex ile yapacagiz
-# r : raw string demektir
+### 1) RFM Score larına göre Segment Map i oluşturma
+# regex ile yapacağız  (: raw string demektir)
 
 seg_map = {
     r'[1-2][1-2]': 'hibernating',           # 1.elemanda 1 veya 2   &   2.elemanda 1 veya 2 varsa
@@ -306,19 +271,16 @@ seg_map = {
 rfm['segment'] = rfm['RFM_SCORE'].replace(seg_map, regex=True)
 
 # alttaki df i segmente gore gruplayalim, segment mean ve count u gosterelim
-rfm[["segment", "recency", "frequency", "monetary"]].groupby("segment").agg(["mean", "count"])
+rfm.groupby("segment").agg({"recency": ["mean", "count"], "frequency": ["mean", "count"], "monetary": ["mean", "count"]})
+# veya rfm[["recency", "frequency", "monetary", "segment"]].groupby("segment").agg(["mean", "count"])
 
 
-rfm[rfm["segment"] == "cant_loose"].head()
-
-### 3) rfm dataframe ini csv dosyasi olarak kaydedelim
-# (kodu calistir, Project te CRM_Analytics sag tikla, Reload from Disk tikla, dosya orada)
+### 3) csv dosyası olarak kaydedelim.  (kodu çalıştır, Project'te CRM_Analytics sağ tıkla, Reload from Disk tıkla, dosya orada)
 rfm.to_csv("rfm.csv")
 
 
 
-
-### Mesela bir departman bizden, cant_loose segmentine ait musterilerin id leri istediyse:
+### Mesela bir departman bizden, cant_loose segmentine ait musterilerin id lerini istediyse:
 # segment i cant_loose olanlarin index bilgileri, yani Customer ID leri !!
 rfm[rfm["segment"] == "cant_loose"].index
 
@@ -329,7 +291,7 @@ new_df["cant_loose_customer_id"] = rfm[rfm["segment"] == "cant_loose"].index
 # id ler float gorunuyor, integer yapalim:
 new_df["cant_loose_customer_id"] = new_df["cant_loose_customer_id"].astype(int)
 
-# csv dosyasi olarak kaydedelim
+# Bir departmana vb. göndermemiz gerekirse diye, csv dosyası olarak kaydedelim.
 # (kodu calistir, Project te CRM_Analytics sag tikla, Reload from Disk tikla, dosya orada)
 new_df.to_csv("cant_loose_customers.csv")
 
@@ -401,17 +363,9 @@ rfm_new = create_rfm(df, csv=True)
 rfm_new.head()
 
 
-
-
-
-### NOTES:
-
-# 1) Bu fonksiyon icindeki adimlar, ayri ayri fonksiyonlar seklinde dey azilabilir.
-# return ciktilari sonraki adima ait fonksiyonda kullanilabilir.
-
-# 2) Bu fonksiyonu ornegin her ay calistiriyorsak, dataframe icerigi degismis olabileceginden,
-# ciktilarin dogrulugunu mutlaka kontrol etmeliyiz. (fonksiyon olusturma oncesi adimlarda da)
-
+### NOTES !
+# 1) Bu fonksiyon içindeki adımlar, ayrı ayrı fonksiyonlar şeklinde de yazılabilir. return çıktıları sonraki adıma ait fonksiyonda kullanılabilir.
+# 2) Bu fonksiyonu örneğin her ay çalıştırıyorsak, dataframe içeriği değişmiş olabileceğinden, çıktıların doğruluğunu mutlaka kontrol etmeliyiz.(fonksiyon öncesi adımlarda da)
 
 
 

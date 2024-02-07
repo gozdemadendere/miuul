@@ -1,71 +1,52 @@
-
 ##############################################################
 # Müşteri Yaşam Boyu Değeri Tahmini ( Customer Lifetime Value Prediction )
 ##############################################################
 
-# Zaman projeksiyonlu olasılıksal CLTV Tahmini,
-# bir müşterinin bir şirkete sağlayacağı gelirin zaman içinde tahmin edilmesine yönelik bir analiz yöntemidir.
+# Customer Lifetime Value, bir müşterinin bir şirketle olan ilişkisi boyunca, bu şirkete kazandıracağı parasal değerdir.
 
-# Bu yöntem, bir müşterinin geçmiş davranışlarını ve satın alma alışkanlıklarını kullanarak,
-# gelecekteki satın alma olasılıklarını tahmin etmeye çalışır.
-
-# Bu tahminler, şirketin pazarlama stratejilerini desteklemek
-# ve müşteri ilişkileri yönetimini optimize etmek için kullanılir.
+# Zaman projeksiyonlu olasılıksal CLTV Tahmini, bir müşterinin bir şirkete sağlayacağı gelirin tahmin edilmesine yönelik bir analiz türüdür
+# Bu yöntem, müşterinin geçmiş davranışlarını ve satın alma alışkanlıklarını kullanarak, gelecekteki satın alma olasılıklarını tahmin etmeye çalışır
+# Sirketlerin müşterileriyle ilişkilerini yönetmelerine ve pazarlama stratejilerini desteklemelerine yardımcı olur.
 
 
+# CLTV prediction = BG/NBD Modeli x Gamma-Gamma Modeli
+# CLTV prediction = Expected Total Transaction x Expected Average Profit
+#                  (Beklenen satın alma sayısı x Beklenen ortalama kazanç=kar)
 
 
-##  Customer Value = Purchase Frequency x Average Order Value
-## (Müşteri Değeri =  Satın Alma Sıklığı x Ort Sipariş Değeri)
-
-# Olasiliksal Form:
-### CLTV = Expected Total Transaction x Expected Average Profit
-# CLTV = BG/NBD Model x Gamma-Gamma Submodel
-
-
-# !!! CLTV degerini, kisi ozelinde kosullayarak, her bir musteri icin tahmin olusturacagiz.
-# !!! Olasilik dagilimlari araciligiyla, genel kitlemizin davranislarini modelleyip, bunlari kisilerin ozeline indirgemmek.
-
-
-
+# ! CLTV degerini, kişiye özel koşullarla belirleyerek, her bir müşteri için tahmin ederiz.
+# ! Olasılık dağılımları kullanarak, genel kitlemizin davranışlarını modelleyerek ve bunları kisilerin özeline indirgeriz.
 
 
 
 ##### BG/NBD Modeli :
-# Bu model satin alma sayisini tahmin eden bir modeldir  (Expected Total Transaction !!)
-# Modelin amacı kitleden bir dağılım yapısı öğrenmektir. Öğrenilmek istenilen bu dağılım: beklenen işlem/satin alma sayısı
+# Bu model bir müşterinin beklenen satın alma sayısını tahmin etmek için kullanılır.  (Expected Total Transaction !!)
+# Modelin amacı kitleden bir dağılım yapısı öğrenmektir. Öğrenilmek istenilen bu dağılım: beklenen satin alma sayısı
 
+# 2 süreci olasılıksal olarak modeller : Transaction Process (Buy) + Dropout Process (Till you die)
 
-# Modelin amacı kitleden bir dağılım yapısı öğrenmektir.
+## Transaction Process: Müşterinin satın alma işlem süreci  (Buy)
+# Transaction Rate, her bir müşteriye göre değişir ve tüm kitle için GAMMA dağılır. (r, a)
 
-# 2 sureci olasiliksal olarak modeller : Transaction Process (Buy) + Dropout Process (Till you die)
-
-# Transaction Process: Musterinin satin alma islem sureci (Buy)
-# Transaction Rate, her bir musteriye gore degisir ve tum kitle icin GAMMA dagilir. (r,a)
-
-# Dropout Process: Musterinin markadan uzaklasma sureci  (Till you die)
-# Dropout Rate, her bir musteriye gore degisir ve tum kitle icin BETA dagilir. (a,b)
-# Bir müşteri alışveriş yaptıktan sonra belirli bir olasılıkla drop olur.
-# Her bir müşterinin p olasılığı ile dropout rate (dropout probability) i vardır.
+## Dropout Process: Müşterinin markadan uzaklaşma süreci   (Till you die)
+# Dropout Rate, her bir müşteriye göre değişir ve tüm kitle için BETA dağılır. (a, b)
+# Bir müşteri alışveriş yaptıktan sonra belirli bir olasılıkla dropout olur. Her bir müşterinin p olasılığı ile dropout rate (dropout probability) i vardır.
 
 
 
-##### Gamma-Gamma Submodel : Bir musterinin islem basina ort ne kadar kar getirebilecegini tahmin etmek icin kullanilir.
-# Yani : Expected average profit !!
 
-# Bir müşterinin işlemlerinin parasal değeri (monetary) transaction value larının ortalaması etrafında rastgele dağılır.
-# Ortalama transaction value tüm müşteriler arasında gamma dağılır.
+##### Gamma-Gamma Modeli : Bir müşterinin işlemlerinin parasal değeri (monetary)  transaction value'ları için
+# Bu model bir müşterinin beklenen ortalama karini tahmin etmek için kullanılır.  (Expected average profit !!)
 
-
+# Bir müşterinin işlemlerinin parasal değeri (monetary) transaction value larının ortalaması etrafında rastgele dağılır. Ortalama transaction value tüm müşteriler arasında gamma dağılır.
 
 
 
 ## !! NOTE :
-# Monetory:   RFM de TOPLAM harcama tutari, CLTV da AVERAGE Harcama tutari!
-# Frequency:  RFM ve CLTV de toplam islem sayisi (fatura sayisi)
-# Recency:    RFM de (analiz tarihi-son satin alma tarihi), CLTV da (musteri son satin alma-ilk satin alma) (yani CLTV de musteri ozelindedir)
-
-
+# Recency:    RFM'de Analiz tarihi - Müşteri son satın alma tarihi,  CLTV'de  Müşteri son satın alma tarihi- Müşteri ilk satın alma tarihi) (yani CLTV'de müşteri özeline aittir)
+# Frequency:  RFM ve CLTV'de toplam işlem sayısı (fatura sayısı)     (rfm'de frequency >=1 , cltv'de frequency >1 )
+# Monetory:   RFM'de TOPLAM harcama tutarı, CLTV'de AVERAGE harcama tutarı
+# Customer Age (T) : Analiz tarihi - Müşterinin ilk satın alma tarihi   (Haftalıktır!)  (Müşterinin ilk satın alma tarihinden, şu ana kadar geçen süresidir/yaşıdır.) (Tenur, az olmasi daha iyidir)
 
 
 
@@ -74,15 +55,17 @@
 # Project : BG-NBD ve Gamma-Gamma Submodel ile CLTV Prediction
 ##############################################################
 
+#### PROJE ADIMLARI ####
 # 1. İş Problemi (Business Problem)
 # 2. Gerekli Kütüphane ve Fonksiyonlar
 # 3. Veriyi Anlama (Data Understanding)
 # 4. Verinin Hazırlanması (Data Preperation)
-# 5. BG-NBD Modeli ile Expected Number of Transaction
-# 6. Gamma-Gamma Modeli ile Expected Average Profit
-# 7. BG-NBD ve Gamma-Gamma Modeli ile CLTV'nin Hesaplanması
-# 8. CLTV'ye Göre Segmentlerin Oluşturulması
-# 9. Çalışmanın fonksiyonlaştırılması
+# 5. CLTV Veri Yapısının Oluşturulması (Metriklerin hazırlanması)
+# 6. BG-NBD Modeli ile Expected Number of Transaction
+# 7. Gamma-Gamma Modeli ile Expected Average Profit
+# 8. BG-NBD ve Gamma-Gamma Modeli ile CLTV'nin Hesaplanması
+# 9. CLTV'ye Göre Segmentlerin Oluşturulması
+# 10.Çalışmanın fonksiyonlaştırılması
 
 
 
@@ -96,18 +79,13 @@
 # 1. İş Problemi (Business Problem)
 ##################################################################################
 
-# Bir e-ticaret şirketi müşterilerini segmentlere ayırıp,
-# bu segmentlere göre pazarlama stratejileri belirlemek istiyor.
-
+# Bir e-ticaret şirketi müşterilerini segmentlere ayırıp, bu segmentlere göre pazarlama stratejileri belirlemek istiyor.
 
 # Veri Seti Hikayesi
 # https://archive.ics.uci.edu/ml/datasets/Online+Retail+II
 
-# Online Retail II isimli veri seti, İngiltere merkezli online bir satış mağazasının
-# 01/12/2009 - 09/12/2011 tarihleri arasındaki satışlarını içeriyor.
-# Bu sirket hediyelik esya satiyor, musterileri genelde kurumsal toptancilar.
-# Kurumsal musterileri segmentlere ayirmak ve buna gore ilgilenmek istiyor.
-
+# Online Retail II isimli veri seti, İngiltere merkezli online bir satış mağazasının 01/12/2009 - 09/12/2011 tarihleri arasındaki satışlarını içeriyor.
+# Bu sirket hediyelik esya satiyor, musterileri genelde kurumsal toptancilar. Kurumsal musterileri segmentlere ayirmak ve buna gore ilgilenmek istiyor.
 
 # Değişkenler
 # InvoiceNo:    Fatura numarası. Her işleme yani faturaya ait eşsiz numara. C ile başlıyorsa iptal edilen işlem.
@@ -118,7 +96,6 @@
 # UnitPrice:    Ürün fiyatı (Sterlin cinsinden)
 # CustomerID:   Eşsiz müşteri numarası
 # Country:      Ülke ismi. Müşterinin yaşadığı ülke.
-
 
 
 
@@ -136,7 +113,6 @@ import matplotlib.pyplot as plt
 from lifetimes import BetaGeoFitter
 from lifetimes import GammaGammaFitter
 from lifetimes.plotting import plot_period_transactions
-
 
 
 pd.set_option('display.max_columns', None)    # tüm sütunlar gelsin
@@ -165,7 +141,6 @@ def replace_with_thresholds(dataframe, variable):
 
 
 
-
 ##################################################################################
 # 3. Veriyi Anlama (Data Understanding)
 ##################################################################################
@@ -186,7 +161,29 @@ df["Invoice"].nunique()
 
 
 
+################################################
+# Exploratory Data Analysis Function : Displays basic characteristics of the DataFrame.
 
+def check_df(dataframe, head=5):
+    print("__________________________________________________________________ FIRST 5 ROWS __________________________________________________________________ ")
+    print(dataframe.head(head))
+    print("__________________________________________________________________  LAST 5 ROWS __________________________________________________________________ ")
+    print(dataframe.tail(head))
+    print("__________________________________________________________________  DATA SHAPE ___________________________________________________________________ ")
+    print(dataframe.shape)
+    print("_________________________________________________________________  GENERAL INFO __________________________________________________________________ ")
+    print(dataframe.info())
+    print("__________________________________________________________________  NULL VALUES __________________________________________________________________ ")
+    print(dataframe.isnull().sum().sort_values(ascending=False))
+    print("_______________________________________________________________  DUPLICATED VALUES _______________________________________________________________ ")
+    print(dataframe.duplicated().sum())
+    print("____________________________________________________________________ DESCRIBE ____________________________________________________________________ ")
+    print(dataframe.describe([0, 0.05, 0.1, 0.25, 0.50, 0.95, 0.99, 1]).T)
+
+# Use the function
+check_df(df)
+
+################################################
 
 
 
@@ -195,7 +192,7 @@ df["Invoice"].nunique()
 ##############################################################
 
 ### 1) Customer ID ve Description da, NaN degerler var.
-# Customer ID' si olmayan satirlar, burada onemsiz ve Description da cok az eksik deger var. Bunlari ucurabiliriz.
+# Customer ID' si olmayan satirlar burada onemsiz ve Description da cok az eksik deger var. Bunlari ucurabiliriz.
 df.dropna(inplace=True)
 
 ### 2) invoice C ile baslayanlari (iptal urunleri) disarida birakalim
@@ -207,12 +204,9 @@ df = df[df["Quantity"] > 0]
 ### 4) Price da min -li deger gorunuyor, mantiksiz, 0dan buyuk olanlari alalim
 df = df[df["Price"] > 0]
 
-
 ### 5) Yukarida hazirladigimiz fonksiyonlari kullanalim:
-# Bu fonksiyon, belirli bir değişkenin aykırı değerler için alt ve üst sınırlarını hesaplar (esik deger)
-replace_with_thresholds(df, "Quantity")
-
 # Bu fonksiyon, belirli bir değişkenin aykırı değerlerini belirlenen alt ve üst sınırlarla değiştirmek için kullanılır.
+replace_with_thresholds(df, "Quantity")
 replace_with_thresholds(df, "Price")
 
 df.describe().T
@@ -222,56 +216,65 @@ df.isnull().sum()
 ### 6) TotalPrice sutunu olusturma: ilgili 1 satista, urune totalde ne kadar odenmistir?
 df["TotalPrice"] = df["Quantity"] * df["Price"]
 
-### 7) Analiz tarihini girelim:
+
+
+
+
+
+
+
+##############################################################
+# 5. CLTV Veri Yapısının Oluşturulması
+##############################################################
+
+# Recency          : Müşterinin son satın alma tarihi - Müşterinin ilk satın alma tarihi   (Haftalıktır!) (RFM'de Analiz tarihi - Müşterinin son satın alma tarihi idi)
+# Customer Age (T) : Analiz tarihi - Müşterinin ilk satın alma tarihi   (Haftalıktır!)  (Müşterinin ilk satın alma tarihinden, şu ana kadar geçen süresidir/yaşıdır.)
+# Frequency        : Müşterinin toplam satın alma sayısı                     (Frequency > 1 olmalıdır!)   (RFM'de >=1 idi)
+# Monetary         : Müşterinin satın alma başına ORTALAMA harcaması             (RFM'de TOPLAM harcama idi!)
+
+
+### 1) Analiz tarihini girelim:
 today_date = dt.datetime(2011, 12, 11)
 
 
-
-
-#########################
-# Lifetime Veri Yapısının Hazırlanması
-#########################
-
-# musteri yasi ve musteri recency degerleri  haftalik olur !
-
-# musteriye ait recency : Son satın alma üzerinden geçen zaman. Haftalık. (kullanıcı özelinde)
-# recency = son satin almasi - ilk satin almasi !  (rfm de analiz tarihi - son satin alma idi)
-
-# T: Müşterinin yaşı. Haftalık. (analiz tarihi - son satin alma)
-
-# frequency: tekrar eden toplam satın alma sayısı (frequency > 1 olmalidir! )
-# monetary: satın alma başına ortalama kazanç (rfm de toplamdi, buraada ortalama !)
-
-
-### 1) Yeni bir df olustur: Customer lara gore grupla, 3 yeni sutun olustur: InvoiceDate, Invoice, TotalPrice
+### 2) Yeni bir df olustur: Customer lara gore grupla, 4 yeni sutun olustur:
 cltv_df = df.groupby('Customer ID').agg(
     {'InvoiceDate': [lambda InvoiceDate: (InvoiceDate.max() - InvoiceDate.min()).days,    # musteriye ait recency
-                     lambda InvoiceDate: (today_date - InvoiceDate.min()).days],          # musteri yasi
+                     lambda InvoiceDate: (today_date - InvoiceDate.min()).days],          # musteri yasi : T
      'Invoice': lambda Invoice: Invoice.nunique(),                                        # frequency
-     'TotalPrice': lambda TotalPrice: TotalPrice.sum()})                                  # total price
+     'TotalPrice': lambda TotalPrice: TotalPrice.sum()})                                  # total price (asagida ortalama kazanci bulacagiz)
 
 
-### 2) en ustteki level label laari silelim
+# en ustteki level label lari silelim
 cltv_df.columns = cltv_df.columns.droplevel(0)
 
+#######################################
+# Note!! : Ornek olarak, FLO_CLTV_prediction projesinde, last order date ve first order date ler farkli sutundaydi, orada bu kismi daha farkli yaptik.
+# Ayrica orada, orijinal dataframe de, Customer id ler her satirda essiz, group by a aldirmadan hesaplamalar yaptik, bakilabilir.
+#######################################
 
 
-### 3) Olusturdugumuz yeni sutun isimlerini guncelleyelim (suanda:  <lambda_0> <lambda_1> <lambda>   <lambda>)
-# recency: musteriye ait recency, T: musteri yasi, frequency: total islem sayisi, monetary: ORT kazanc
+### 4) monetary: satın alma başına ORTALAMA kazanç idi, total price i islem sayisina bolelim (rfm de toplam kazancti, burada ortalama kazanc !)
+cltv_df["TotalPrice"] = cltv_df["TotalPrice"] / cltv_df["Invoice"]
+
+
+### 5) Olusturdugumuz yeni sutun isimlerini guncelleyelim (suanda:  <lambda_0> <lambda_1> <lambda>   <lambda>)
+# recency: musteriye ait recency, T: musteri yasi, frequency: total islem sayisi, monetary: ORTALAMA kazanc
 cltv_df.columns = ['recency', 'T', 'frequency', 'monetary']
 
+cltv_df.head()
 
-### 4) monetary: satın alma başına ortalama kazanç idi, total price i islem saayisia bolelim:
-cltv_df["monetary"] = cltv_df["monetary"] / cltv_df["frequency"]
 
+# frequency integer olmalidir, degilse integer a cevirelim
+cltv_df.dtypes
+
+
+### 6) frequency 1den buyuk olmalidir !  df de min 1 gorunuyor.
 cltv_df.describe().T
-
-
-### 5) frequency 1den buyuk olmalidir !  df de min 1 gorunuyor.
 cltv_df = cltv_df[(cltv_df['frequency'] > 1)]
 
 
-### 6) recency ve musteri yasi degerlerini, haftalik olmaliydi, haftalik cinse cevirelim: 7ye bolerek
+### 7) Recency ve Müşteri Yaşı (T) değerleri haftalık olmalı, haftalık cinse çevirelim: 7'ye bölerek
 cltv_df["recency"] = cltv_df["recency"] / 7
 cltv_df["T"] = cltv_df["T"] / 7
 
@@ -287,14 +290,15 @@ cltv_df.describe().T
 
 
 ##############################################################
-# 5. BG-NBD Modelinin Kurulması
+# 6. BG-NBD Modelinin Kurulması
 ##############################################################
 
-# BG-NBD modeli, bize en cok olabilirlik yontemiyle, beta ve gama dagilimlarini parametrelerini bulur ve
-# bir tahmin yapabilmek icin ilgili modeli olusuturur.
+# Bu model bir müşterinin beklenen satın alma sayısını tahmin etmek için kullanılır.  (Expected Total Transaction !!)
+# Modelin amacı kitleden bir dağılım yapısı öğrenmektir. Öğrenilmek istenilen bu dağılım: beklenen satin alma sayısı
+# BG-NBD modeli, bize en cok olabilirlik yontemiyle, beta ve gamma dagilimlarinin parametrelerini bulur.
 
 
-# katsayilara uygulanacaak ceza katsayisi: 0.001
+# katsayilara uygulanacak ceza katsayisi: 0.001
 bgf = BetaGeoFitter(penalizer_coef=0.001)
 
 # modeli nihai hale getir:
@@ -302,16 +306,17 @@ bgf.fit(cltv_df['frequency'],
         cltv_df['recency'],
         cltv_df['T'])
 
-# Ciktida bize 2845 musteri icin alpha beta degerlerini buldu: fitted with 2845 subjects, alpha: 11.41, b: 2.49, r: 2.18
+# Çıktıda 2845 müşteriye ait alfa beta değerlerini bulduk: fitted with 2845 subjects, alpha: 11.41, b: 2.49, r: 2.18
+
 
 
 ################################################################
 # 1 hafta içinde en çok satın alma beklediğimiz 10 müşteri kimdir?
 ################################################################
 
-# t:1 yani 1 haftalik tahmin yap demek
-# cltv_df dataframeinde, bu 3 degiskene gore, 1 hafta icerisinde her musteri icin beklenen satin alma sayilari
-# ilk 10 musteri icin, 1 hafta icerisinde her musteri icin beklenen satin alma sayilari
+# t:1 yani 1 haftalık tahmin yap demek
+# cltv_df dataframe inde bu 3 değişkene göre,
+# İlk 10 müşteri için, 1 hafta icerisinde her müşteri başına beklenen satın alma sayısı
 bgf.conditional_expected_number_of_purchases_up_to_time(1,
                                                         cltv_df['frequency'],
                                                         cltv_df['recency'],
@@ -342,21 +347,21 @@ cltv_df["expected_purc_1_week"] = bgf.predict(1,
 ################################################################
 
 # t:4 yani 4 haftalik = aylik tahmin yap demek
-# ilk 10 musteri icin, 4 hafta icerisinde her musteri icin beklenen satin alma sayilari
+# ilk 10 müşteri icin, 4 hafta içerisinde beklenen satın alma sayıları
 bgf.predict(4,
             cltv_df['frequency'],
             cltv_df['recency'],
             cltv_df['T']).sort_values(ascending=False).head(10)
 
 
-# Tum musteriler icin, 4 hafta icerisinde her musteri icin beklenen satin alma sayilari
+# Tüm müşteriler icin, 4 hafta içerisinde beklenen satın alma sayıları
 cltv_df["expected_purc_1_month"] = bgf.predict(4,
                                                cltv_df['frequency'],
                                                cltv_df['recency'],
                                                cltv_df['T'])
 
 
-# ustteki islemin aynisi, predict fonksiyonu ile de yapilabilir:
+# veya predict fonksiyonu ile ayni islem:
 bgf.predict(4,
             cltv_df['frequency'],
             cltv_df['recency'],
@@ -369,18 +374,36 @@ bgf.predict(4,
 ################################################################
 
 
-# Tum musteriler icin, 12 hafta (4 hafta x 3) icerisinde her musteri icin beklenen satin alma sayilari
+# Tüm müşteriler icin, 12 hafta (4 hafta x 3) icerisinde beklenen satın alma sayıları
 bgf.predict(4 * 3,
             cltv_df['frequency'],
             cltv_df['recency'],
             cltv_df['T']).sum()
 
 
-# Tum musteriler icin, 12 hafta (4 hafta x 3) icerisinde her musteri icin beklenen satin alma sayilari
+# veya predict fonksiyonu ile ayni islem:
 cltv_df["expected_purc_3_month"] = bgf.predict(4 * 3,
                                                cltv_df['frequency'],
                                                cltv_df['recency'],
-                                               cltv_df['T'])
+                                               cltv_df['T']).sum()
+
+
+################################################################
+# 6 Ayda Tüm Şirketin Beklenen Satış Sayısı Nedir?
+################################################################
+
+# Tüm müşteriler icin, 24 hafta (4 hafta x 6) icerisinde beklenen satın alma sayıları
+bgf.predict(4 * 6,
+            cltv_df['frequency'],
+            cltv_df['recency'],
+            cltv_df['T']).sum()
+
+
+# veya predict fonksiyonu ile ayni islem:
+cltv_df["expected_purc_3_month"] = bgf.predict(4 * 6,
+                                               cltv_df['frequency'],
+                                               cltv_df['recency'],
+                                               cltv_df['T']).sum()
 
 ################################################################
 # Tahmin Sonuçlarının Değerlendirilmesi
@@ -399,10 +422,10 @@ plt.show()
 
 
 ##############################################################
-# 6. GAMMA-GAMMA Modelinin Kurulması
+# 7. GAMMA-GAMMA Modelinin Kurulması
 ##############################################################
 
-# GAMMA-GAMMA modeli, bize (musteri bazli) Expected Average Profit i modeller.
+# GAMMA-GAMMA modeli, bir müşterinin beklenen ortalama karini tahmin etmek için kullanılır. (Expected Average Profit)
 
 # katsayilara uygulanacak ceza katsayisi: 0.01
 ggf = GammaGammaFitter(penalizer_coef=0.01)
@@ -438,7 +461,7 @@ cltv_df.sort_values(by="expected_average_profit", ascending=False).head(10)
 
 
 ##############################################################
-# 7. BG-NBD ve GG modeli ile CLTV'nin hesaplanması
+# 8. BG-NBD ve GG modeli ile CLTV'nin hesaplanması
 ##############################################################
 
 # daha once kurdugumuz ggf modeli ve bgf modeli ile, cltv hesaplayalim
@@ -458,7 +481,7 @@ cltv.head()
 # index bilgisi ekleyelim, Customer ID bir index degil degisken olsun
 cltv = cltv.reset_index()
 
-# cltv_df ile cltv df lerii birlestirelim
+# cltv_df ile cltv df leri birlestirelim
 cltv_final = cltv_df.merge(cltv, on="Customer ID", how="left")
 
 
@@ -499,13 +522,15 @@ cltv_final.sort_values(by="clv", ascending=False).head(10)
 
 
 ##############################################################
-# 8. CLTV'ye Göre Segmentlerin Oluşturulması
+# 9. CLTV'ye Göre Segmentlerin Oluşturulması
 ##############################################################
 
 cltv_final
 
-# Yeni bir segment sutunu olusturalim, clv e gore 4 segment e ayiralim
-# Burada segmentleri otomatik belirledik, gerekirse araliklari kendimiz de ayaarlayabiliriz cut fonnks ile vb.
+# 6 aylık CLTV'ye göre, tüm müşterilerinizi 4 gruba (segmente) ayırınız ve grup isimlerini veri setine ekleyiniz.
+# cltv_segment ismi ile atayınız.
+
+# Burada segmentleri otomatik belirledik, gerekirse araliklari kendimiz de ayarlayabiliriz cut fonksiyonu ile vb.
 cltv_final["segment"] = pd.qcut(cltv_final["clv"], 4, labels=["D", "C", "B", "A"])
 
 # clv ye gore siralayalim
@@ -530,7 +555,7 @@ cltv_final.groupby("segment").agg({"count", "mean", "sum"})
 
 
 ##############################################################
-# 9. Çalışmanın Fonksiyonlaştırılması
+# 10. Çalışmanın Fonksiyonlaştırılması
 ##############################################################
 
 
@@ -607,8 +632,8 @@ df = df_.copy()
 cltv_final2 = create_cltv_p(df)
 
 
-# csv dosyasi olarak kaydedelim, bir departmana vs gondermemiz gerekirse
-# (kodu calistir, Project te CRM_Analytics sag tikla, Reload from Disk tikla, dosya orada)
+# Bir departmana vb. göndermemiz gerekirse diye, csv dosyası olarak kaydedelim.
+# (kodu çalıştır, Project'te CRM_Analytics sağ tıkla, Reload from Disk tıkla, dosya orada)
 cltv_final2.to_csv("cltv_prediction.csv")
 
 
