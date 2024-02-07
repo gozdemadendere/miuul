@@ -62,7 +62,7 @@ ______________________________
 ### 4. Yönetime, CLTV Değerleri Kapsamında Aksiyon Önerileri
 
 
-#### A Segmenti (6 Ay için Beklenen Toplam Satış: 7,889 - CLTV: 1,857,360)
+#### A Segmenti (6 Ay için Beklenen Satış Adedi: 7,889 - CLTV: 1,857,360)
 - En yüksek CLTV değerlerine sahip bu "sadık müşterilere"; Özel Indirimler, Kişiselleştirilmiş Mail/SMS, Sadakat Programları sunarak bu müşterileri ödüllendirebilir ve gelecekteki satışlarını arttırabilirsiniz.
   
 - Zaten satın alma adedi yüksek ve sürekli olan bu müşterilere, cross-selling ve up-selling stratejilerini uygulayarak, satın alma adetlerini ve CLTV değerlerini daha çok arttırabilirsiniz.
@@ -72,17 +72,17 @@ ______________________________
 - VIP müşteri programları veya özel etkinlikler düzenleyerek, müşterilerin markaya olan ilgisini artırabilir ve satışları artırabilirsiniz.
 
 
-#### B Segmenti (6 Ay için Beklenen Toplam Satış: 6,033 - CLTV: 999,253)
+#### B Segmenti (6 Ay için Beklenen Satış Adedi: 6,033 - CLTV: 999,253)
 - Bu segmentteki "potansiyel sadık müşterilerin" satın alma adetlerini ve CLTV değerlerini arttırmak için cross-selling ve up-selling stratejilerini uygulayabilirsiniz. Böylece segmentin CLTV değerini arttırabilirsiniz.
   
 - VIP müşteri programları veya özel etkinlikler düzenleyerek, müşterilerin markaya olan ilgisini artırabilir ve satışları artırabilirsiniz.
 
 
-#### C Segmenti (6 Ay için Beklenen Toplam Satış: 5,243 - CLTV: 690,508)
+#### C Segmenti (6 Ay için Beklenen Satış Adedi: 5,243 - CLTV: 690,508)
 - Bu segmentteki "en yüksek CLTV'ye sahip müşterilere" odaklanarak, kampanyalar ve özel indirimlerle bu müşterileri teşvik edip, segmentin CLTV değerini arttırıp, B segmentine yükselmelerini sağlayabilirsiniz.
 
 
-#### D Segmenti (6 Ay için Beklenen Toplam Satış: 4,053 - CLTV: 398,991)
+#### D Segmenti (6 Ay için Beklenen Satış Adedi: 4,053 - CLTV: 398,991)
 - Bu segmentteki sık alışveriş yapan müşterilere, düşük maliyetli ürünler veya hizmetler sunarak, daha sık alışveriş yapmalarını teşvik edebilir, C segmentine yükselmelerini sağlayabilirsiniz.
 
 - Bu segmentteki müşterilerden düzenli geri bildirim alarak, ürün ve hizmetlerinizi iyileştirmek için fırsatlar arayabilirsiniz.
