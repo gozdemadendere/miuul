@@ -9,10 +9,6 @@
 # Frequency = Müşterinin toplam satın alma sayısı   (toplam işlem veya fatura sayısı)
 # Monetary  = Müşterinin TOPLAM Harcama tutarı
 
-## KEY NOTES !!!
-# Frequency ve ardından Recency daha önemli metriklerdir.
-# RFM skorları üzerinden segmentler oluşturulurken, Monetary metriği kullanılmaz! Çünkü zaten Recency ve Frequency varsa, otomatik olarak Monetary de gelir.
-
 
 #### PROJE ADIMLARI ####
 # 1. İş Problemi (Business Problem)
@@ -172,6 +168,11 @@ df.groupby("customer_id").agg({"total_order_number": "sum"}).sort_values(by="tot
 # Recency:    Analiz tarihi - Müşterinin son satın alma tarihi
 # Frequency:  Müşterinin toplam satın alma sayısı  (Toplam işlem/fatura sayısı)
 # Monetary:   Müşterinin TOPLAM Harcama tutarı
+
+## KEY NOTES !!!
+# Frequency ve ardından Recency daha önemli metriklerdir.
+# RFM skorları üzerinden segmentler oluşturulurken, Monetary metriği kullanılmaz! Çünkü zaten Recency ve Frequency varsa, otomatik olarak Monetary de gelir.
+
 
 ### 1) Analizin yapıldığı günü tanımlayalım.  Dataframe deki en son satın alma tarihi 30 Mayıs 2021 ise:
 df["last_order_date"].max()    # dataframe deki en son satın alma tarihi !!
