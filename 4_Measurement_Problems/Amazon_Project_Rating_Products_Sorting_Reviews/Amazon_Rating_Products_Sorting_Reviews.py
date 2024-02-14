@@ -1,6 +1,6 @@
 
 ###################################################
-# PROJE: Rating Products & Sorting Reviews in AMAZON
+# PROJE: Rating Products & Sorting Reviews on AMAZON
 ###################################################
 
 ## PROJE ADIMLARI ##
@@ -60,10 +60,9 @@ pd.set_option("display.max_columns", None)  # DataFrame'in gösterilecek maksimu
 pd.set_option("display.max_rows", 100)      # DataFrame'in gösterilecek maksimum satır sayısı
 pd.set_option('display.width', 500)         # Çıktının yanyana gelmesi için genişlik ayarlar.
 pd.set_option("display.precision", 2)       # Float türündeki sayıların gösterilecek ondalık basamak sayısını belirler.
-pd.set_option('display.expand_frame_repr', False)  # DataFrame'in tamamını bir satırda gösterir.
+pd.set_option('display.expand_frame_repr', False)
 
 df = pd.read_csv("Amazon_Project_Rating_Products_Sorting_Reviews/amazon_review.csv")
-
 
 
 #############################
@@ -98,26 +97,20 @@ check_df(df)
 # 3) Rating Products (Ürünlerin puanlarının hesaplanması)
 ###################################################
 
-# GÖREV: Average Rating'i Güncel Yorumlara Göre Hesaplayınız ve Var Olan Average Rating ile Kıyaslayınız.
-# Paylaşılan veri setinde kullanıcılar bir ürüne puanlar vermiş ve yorumlar yapmıştır.
-# Bu görevde amacımız verilen puanları tarihe göre ağırlıklandırarak değerlendirmek.
-# İlk ortalama puan ile, elde edilecek tarihe göre ağırlıklı puanın karşılaştırılması gerekmektedir.
-
 ####################
-# Adım 1: Ürünün Ortalama Puanını Hesaplayınız. (Average)
+# 1. Average
 ####################
 
-# Rating değişkenine ait genel ortalama
+# Average Rating'i Güncel Yorumlara Göre Hesaplayınız. (Ürünün Ortalama Puanını Hesaplayınız.)
 df["overall"].mean()   # 4.58
 
 
 
-
-
 ####################
-# Adım 2: Tarihe Göre Ağırlıklı Puan Ortalamasını Hesaplayınız. (Time-Based Weighted Average)
+# 2. Time-Based Weighted Average
 ####################
 
+# Tarihe Göre Ağırlıklı Puan Ortalamasını Hesaplayınız.
 # Puan Zamanlarına Göre Ağırlıklı Ortalama: Yeni, başarılı ve trend olan ürünlerin öne çıkabilmesi için, zamansal bir şekilde ortalama alma yöntemidir.
 
 # Bugüne ait tarihi girelim
@@ -131,21 +124,23 @@ df["reviewTime"] = pd.to_datetime(df["reviewTime"])
 df["days"] = (current_date - df["reviewTime"]).dt.days
 
 
+
 # Bazı pratikler yapalım:
 # Verisetindeki son 30 günde yapılan puanlamalar ortalaması:
-df.loc[df["days"] <= 30, "overall"].mean()   # 4.74
+df.loc[df["days"] <= 30, "overall"].mean()                           # 4.74242
 
 # Verisetindeki son 1 ay-3 ay arası yapılan puanlamalar ortalaması:
-df.loc[(df["days"] > 30) & (df["days"] <= 90), "overall"].mean()    # 4.80
+df.loc[(df["days"] > 30) & (df["days"] <= 90), "overall"].mean()     # 4.80314
 
 # Verisetindeki son 3 ay-6 ay arası yapılan puanlamalar ortalaması:
-df.loc[(df["days"] > 90) & (df["days"] <= 180), "overall"].mean()    # 4.64
+df.loc[(df["days"] > 90) & (df["days"] <= 180), "overall"].mean()    # 4.64948
 
-# Verisetindeki 6 aydan eski yapılan puanlamalar ortalaması:
-df.loc[(df["days"] > 180), "overall"].mean()    # 4.57
+# Verisetindeki 6 aydan daha eski yapılan puanlamalar ortalaması:
+df.loc[(df["days"] > 180), "overall"].mean()                         # 4.57337
 
 
-## Puan Zamanlarına Göre Ağırlıklı Puan Ortalaması Hesaplama Fonksiyonu
+
+## Puanlama Zamanlarına Göre Ağırlıklı Puan Ortalaması Hesaplama Fonksiyonu
 def time_based_weighted_average(dataframe, w1=28, w2=26, w3=24, w4=22):
     return dataframe.loc[df["days"] <= 30, "overall"].mean() * w1 / 100 + \
            dataframe.loc[(dataframe["days"] > 30) & (dataframe["days"] <= 90), "overall"].mean() * w2 / 100 + \
@@ -159,36 +154,27 @@ time_based_weighted_average(df)   # 4.69
 
 
 
-####################
-# Adım 3: Ağırlıklandırılmış puanlamada her bir zaman diliminin ortalamasını karşılaştırıp yorumlayınız.
-####################
+
+## Görev: Ağırlıklandırılmış puanlamada her bir zaman diliminin ortalamasını karşılaştırıp yorumlayınız.
 
 # Verisetindeki son 30 günde yapılan puanlamalar ortalaması:
-df.loc[df["days"] <= 30, "overall"].mean()   # 4.74
+df.loc[df["days"] <= 30, "overall"].mean()                           # 4.74242
 
 # Verisetindeki son 1 ay-3 ay arası yapılan puanlamalar ortalaması:
-df.loc[(df["days"] > 30) & (df["days"] <= 90), "overall"].mean()    # 4.80
+df.loc[(df["days"] > 30) & (df["days"] <= 90), "overall"].mean()     # 4.80314
 
 # Verisetindeki son 3 ay-6 ay arası yapılan puanlamalar ortalaması:
-df.loc[(df["days"] > 90) & (df["days"] <= 180), "overall"].mean()    # 4.64
+df.loc[(df["days"] > 90) & (df["days"] <= 180), "overall"].mean()    # 4.64948
 
-# Verisetindeki 6 aydan eski yapılan puanlamalar ortalaması:
-df.loc[(df["days"] > 180), "overall"].mean()    # 4.57
+# Verisetindeki 6 aydan daha eski yapılan puanlamalar ortalaması:
+df.loc[(df["days"] > 180), "overall"].mean()                         # 4.57337
 
+# Yorum: Güncel olarak yapılan puanlamalar daha yüksek. Eski puanlamalar daha düşük. Zamanla gelen puan ort. artışı, "ürünün popülerliğinde veya kullanıcı memnuniyetinde" hafif bir artma olduğunu gösterebilir.
 
-# Yorum: Güncel olarak yapılan puanlamalar daha yüksek. Eski puanlamalar daha düşük.
+# Son 30 Gün: Ort. puanlama 4.74'tür. Kullanıcılar son dönemde üründen memnun olmuş olabilirler. Veya "ürünün belirli bir özelliği dikkat çekmiş veya tanıtımı yapılmış" olabilir.
+# Son 30 Günden Eski 3 Aydan Yeni: Ort. puanlama 4.80'dir. Son 30 gün içindeki puanlamalardan bir miktar daha yüksek görünmektedir.
+# Son 3 Aydan Eski - 6 Aydan Yeni: Ortalama puanlama 4.64'tür. Bu dönemdeki puanlama biraz daha düşüktür, ancak yine yüksektir.
 
-# Son 30 Gün: Ortalama puanlama 4.74'tür. Son dönemdeki kullanıcıların genellikle üründen memnun olduklarını ve olumlu geri bildirimlerde bulunduklarını gösterebilir.
-# Kullanıcılar son dönemde üründen memnun olmuş olabilirler veya "ürünün belirli bir özelliği dikkat çekmiş veya tanıtımı yapılmış" olabilir.
-
-# Son 30 Günden Eski 3 Aydan Yeni: Ortalama puanlama 4.80'dir. Bu dönemdeki puanlama, son 30 gün içindeki puanlamalardan hala yüksek ve hatta bir miktar daha yüksek görünmektedir.
-# Bu, ürünün "son birkaç ay içinde genel olarak olumlu geri bildirimler aldığını" gösterebilir.
-
-# Son 3 Aydan Eski - 6 Aydan Yeni: Ortalama puanlama 4.64'tür. Bu dönemdeki puanlama biraz daha düşüktür, ancak hala oldukça yüksektir.
-# Ürünün bu dönemdeki performansındaki hafif düşüş, belki de rekabetin artması veya "benzer ürünlerin piyasaya sürülmesi" gibi faktörlerle ilişkilendirilebilir.
-
-# 6 Aydan Eski: Ortalama puanlama 4.57'dir. Bu zaman dilimindeki puanlama diğer zaman dilimlerine göre biraz daha düşüktür.
-# Bu, ürünün popülerliğinde veya kullanıcı memnuniyetinde zamanla hafif bir artma olduğunu gösterebilir.
 
 
 
@@ -200,11 +186,10 @@ df.loc[(df["days"] > 180), "overall"].mean()    # 4.57
 ###################################################
 # Yorumun veya ürünün düşük/yüksek puanlı olmasıyla ilgilenmiyoruz. Kullanıcıya, en faydalı sonucu ulaştırmaya çalışıyoruz.
 
-# Görev: Ürün için Ürün Detay Sayfasında Görüntülenecek 20 Review'i Belirleyiniz.
+## Görev: Ürün için Ürün Detay Sayfasında Görüntülenecek 20 Review'i Belirleyiniz.
 
-###################################################
-# Adım 1. helpful_no Değişkenini Üretiniz
-###################################################
+
+## Adım 1. helpful_no Değişkenini Üretiniz
 
 # total_vote değişkeni:  Bir yoruma verilen toplam up ratings-down ratings sayısıdır. up, helpful demektir.
 # helpful_yes değişkeni: Yararlı oy sayısı. (up ratings)
@@ -214,12 +199,13 @@ df["helpful_no"] = df["total_vote"] - df["helpful_yes"]
 
 
 
-###################################################
 ## Adım 2. Şu Skorları Hesaplayıp Veriye Ekleyiniz:
+###################################################
 # 1) Up-Down Difference Score = (up ratings) − (down ratings)
 # 2) Average rating Score = (up ratings) / (all ratings)
 # 3) Wilson Lower Bound Score
 ###################################################
+
 
 ###########
 # 1) Up-Down Difference Score = (up ratings) − (down ratings)
@@ -238,6 +224,7 @@ df["score_pos_neg_diff"] = df.apply(lambda x: score_up_down_diff(x["helpful_yes"
 ###########
 # 2) Average rating Score = (up ratings) / (all ratings)
 ###########
+
 def score_average_rating(helpful_yes, helpful_no):
     if helpful_yes + helpful_no == 0:
         return 0
@@ -252,6 +239,12 @@ df["score_average_rating"] = df.apply(lambda x: score_average_rating(x["helpful_
 ###########
 # 3) Wilson Lower Bound Score
 ###########
+
+# WLB Skoru, ürün veya yorum sıralamalarında kullanılan istatistiksel bir yöntemdir.
+# Yoruma ait puanı ve yorum yapan "müşterinin yorum sayısını da dikkate alarak" sıralama yapar. Müşterinin yorum sayısı, yorumun ne kadar güvenilir olduğunu belirtir. !
+# Wilson Lower Bound yöntemi, yorumların güvenilirliği ve puanların istatistiksel olarak anlamlı olup olmadığını değerlendirmek için Bayes Teoremi matematiksel formülünden faydalanır.
+
+
 def wilson_lower_bound(helpful_yes, helpful_no, confidence=0.95):
     """
     Wilson Lower Bound Score hesapla
@@ -283,22 +276,23 @@ def wilson_lower_bound(helpful_yes, helpful_no, confidence=0.95):
     phat = 1.0 * helpful_yes / n
     return (phat + z * z / (2 * n) - z * math.sqrt((phat * (1 - phat) + z * z / (4 * n)) / n)) / (1 + z * z / n)
 
-#########
+
+# Üstte oluşturduğumuz fonksiyonu uygulatarak, Dataframe de yeni bir sütun oluşturalım.
 df["wilson_lower_bound"] = df.apply(lambda x: wilson_lower_bound(x["helpful_yes"], x["helpful_no"]), axis=1)
 
 
 
 
 
-##################################################
-# Adım 3. 20 Yorumu Belirleyiniz ve Sonuçları Yorumlayınız.
-###################################################
+
+## Adım 3. 20 Yorumu Belirleyiniz.
 
 top_20_reviews = df.sort_values(by="wilson_lower_bound", ascending=False).head(20)
 
-# 20 yorum
-top_20_reviews.loc[:, ["reviewText", "wilson_lower_bound"]]
-
+# Yorum:
+# Müşteriler için daha faydalı olabilecek yorumları en üste çıkardık. Yorumun pozitif veya negatif olması bunu etkilemedi. Örnek:
+# 1. ve 2. yorumdaki müşteriler, ürünün performansı hakkında olumlu bilgiler sunmuşlar ve 5 puan vermişlerdir.
+# 3. ve 4. yorumdaki müşteriler, ürünün belirli sorunları veya dezavantajları olduğunu belirtmiş ve 1 puan vermişlerdir.
 
 
 
