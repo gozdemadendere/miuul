@@ -124,7 +124,13 @@ df[df["course_name"].str.contains("Veri Bilimi")].sort_values("weighted_sorting_
 ########################################
 # 4) Bayesian Average Rating Score
 ########################################
-# Bayesian Average Rating Score, sadece kullanıcıların verdiği puanları (rating) dikkate alan bir sıralama yöntemidir.
+
+# Bayesian Average Rating Score, sadece kullanıcıların verdiği puanları (rating) dikkate alarak ürünleri sıralamak için kullanılan bir yöntemdir.
+# Bu yöntem, ürünlerin puanlarını hesaplarken, her ürün için belirli bir alt-üst limit ve bir güven aralığı belirler.  Bu güven aralığı, o ürünün aldığı puanların ne kadar güvenilir olduğunu ifade eder.
+
+# Yeni-başarılı-ümit vaadeden ürünler de öne çıkabiliyor, bu nedenle bu faktörü de baz almak sonuçları daha faydalı hale getirir!
+# Bayesian sıralama ile mesela, IK cıyız, işe alacağımız kişilere ait 3 özellik seçip, min max scaler ile özellikleri standartlaştırıp, ardından bu 3 özelliğe göre Bayesian score hesaplayabiliriz.
+
 # Bayesian ortalama formülü: Puan dağılımlarının üzerinden, ağırlıklı bir şekilde olasılıksal ortalama hesabı yapar. Orijinal puanı bir miktar kırpar.
 # Bu nedenle direkt bu hesaplamayı kullanmak yerine, bu hesaplamayı da dahil ettiğimiz bir ağırlıklı ortalama hesaplayabiliriz. (5. adımda)
 

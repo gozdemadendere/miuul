@@ -152,7 +152,7 @@ df.loc[df["days"] <= 30, "Rating"].mean() * 28/100 + \
     df.loc[(df["days"] > 180), "Rating"].mean() * 22/100
 
 
-### Puan Zamanlarına Göre Ağırlıklı Puan Ortalaması Hesaplama Fonksiyonu
+## Puanlama Zamanlarına Göre Ağırlıklı Puan Ortalaması Hesaplama Fonksiyonu
 def time_based_weighted_average(dataframe, w1=28, w2=26, w3=24, w4=22):
     return dataframe.loc[df["days"] <= 30, "Rating"].mean() * w1 / 100 + \
            dataframe.loc[(dataframe["days"] > 30) & (dataframe["days"] <= 90), "Rating"].mean() * w2 / 100 + \

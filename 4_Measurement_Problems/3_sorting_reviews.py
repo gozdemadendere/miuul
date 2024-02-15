@@ -2,7 +2,7 @@
 # Sorting Reviews (Müşteri yorumlarının sıralanması)
 ############################################
 
-# Yorumun veya ürünün düşük/yüksek puanlı olmasıyla ilgilenmiyoruz. Kullanıcıya, en faydalı sonucu ulaştırmaya çalışıyoruz.
+# Yorum sıralarken, faydalı olan yorumları müşteriye en üstte vermeye çalışıyoruz, yüksek puanlı yorumu yada olumlu olumsuz yorumu değil!
 # Örneğin, 300 kişinin faydalı bulduğu bir yorumun, en tepede gösterilmesi gibi..
 
 
@@ -59,7 +59,10 @@ score_average_rating(5500, 4500)   # 0.55
 # 3) Wilson Lower Bound Score
 ###################################################
 
-# WLB Skoru, ürün veya yorum sıralamalarında kullanılan istatistiksel bir yöntemdir.
+# WLB Score, e-ticaret sitelerindeki ürün yorumlarını sıralamak için yaygın olarak kullanılan istatistiksel bir yöntemdir.
+# Bu yöntem, yorumların güvenilirliğini ve önemini hesaba katarak yorumları sıralar.
+# Yorumlar var elimizde, puanları var, güven aralığı oluştururuz, bu güven aralığı içinde (alt sınır-üst sınır arasında) kalarak, hata payını da belirterek yanılma payına dayanak sağlayarak, skor belirleriz.
+
 # Yoruma ait puanı ve yorum yapan "müşterinin yorum sayısını da dikkate alarak" sıralama yapar. Müşterinin yorum sayısı, yorumun ne kadar güvenilir olduğunu belirtir. !
 # Wilson Lower Bound yöntemi, yorumların güvenilirliği ve puanların istatistiksel olarak anlamlı olup olmadığını değerlendirmek için Bayes Teoremi matematiksel formülünden faydalanır.
 
@@ -68,7 +71,7 @@ def wilson_lower_bound(up, down, confidence=0.95):
     Wilson Lower Bound Score hesapla
 
     - Bernoulli parametresi p için hesaplanacak güven aralığının alt sınırı WLB skoru olarak kabul edilir.
-    - Hesaplanacak skor ürün sıralaması için kullanılır.
+    - Hesaplanacak skor ürün, yorum sıralaması için kullanılır.
     - Not:
     Eğer skorlar 1-5 arasıdaysa 1-3 negatif, 4-5 pozitif olarak işaretlenir ve bernoulli'ye uygun hale getirilebilir.
     Bu beraberinde bazı problemleri de getirir. Bu sebeple bayesian average rating yapmak gerekir.
