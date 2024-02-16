@@ -97,7 +97,7 @@ df["comment_count_scaled"] = MinMaxScaler(feature_range=(1, 5)). \
     transform(df[["commment_count"]])
 
 
-# Ağırlıklı ortalama hesaplayalım: Rating, Comment count, Purchase count bazında
+# Ağırlıklı ortalama hesaplayalım: Rating %42, Comment count %32, Purchase count %26
 (df["comment_count_scaled"] * 32 / 100 + df["purchase_count_scaled"] * 26 / 100 + df["rating"] * 42 / 100)    # (Toplamda %100 olmalı!)
 
 
@@ -125,14 +125,16 @@ df[df["course_name"].str.contains("Veri Bilimi")].sort_values("weighted_sorting_
 # 4) Bayesian Average Rating Score
 ########################################
 
-# Bayesian Average Rating Score, sadece kullanıcıların verdiği puanları (rating) dikkate alarak ürünleri sıralamak için kullanılan bir yöntemdir.
+# Bayesian ortalama formülü: Puan dağılımları üzerinden, ağırlıklı bir şekilde olasılıksal ortalama hesabı yapar. Orijinal puanı bir miktar kırpar.
+# Bu örnekte Bayesian Average Rating Score, sadece kullanıcıların verdiği puanları (rating) dikkate alarak ürünleri sıralamak için kullanılan bir yöntemdir.
 # Bu yöntem, ürünlerin puanlarını hesaplarken, her ürün için belirli bir alt-üst limit ve bir güven aralığı belirler.  Bu güven aralığı, o ürünün aldığı puanların ne kadar güvenilir olduğunu ifade eder.
 
 # Yeni-başarılı-ümit vaadeden ürünler de öne çıkabiliyor, bu nedenle bu faktörü de baz almak sonuçları daha faydalı hale getirir!
-# Bayesian sıralama ile mesela, IK cıyız, işe alacağımız kişilere ait 3 özellik seçip, min max scaler ile özellikleri standartlaştırıp, ardından bu 3 özelliğe göre Bayesian score hesaplayabiliriz.
-
-# Bayesian ortalama formülü: Puan dağılımlarının üzerinden, ağırlıklı bir şekilde olasılıksal ortalama hesabı yapar. Orijinal puanı bir miktar kırpar.
 # Bu nedenle direkt bu hesaplamayı kullanmak yerine, bu hesaplamayı da dahil ettiğimiz bir ağırlıklı ortalama hesaplayabiliriz. (5. adımda)
+
+# Bayesian sıralama ile mesela,  işe alacağımız kişilere ait 3 özellik seçip, min-max scaler ile özellikleri standartlaştırıp, ardından bu 3 özelliğe göre Bayesian score hesaplayabiliriz.
+# Ürün Sıralaması, Öneri Sistemleri, Ürün Kalitesi Değerlendirmesi,
+
 
 
 # import the libraries
@@ -168,7 +170,7 @@ df.head()
 # df.apply(lambda x:)  ile bar_score isimli yeni br sütun oluştur, x: yeni sütundaki değerler:
 # df den, 1_point den 5_point e dek bayesian_average_rating fonksiyonunu uygula
 # x[["1_point", "2_point", "3_point", "4_point", "5_point"]] ifadesi, her bir satırdaki "1_point", "2_point", "3_point", "4_point" ve "5_point" sütunlarına erişmek için kullanılır.
-df["bar_score"] = df.apply(lambda x: bayesian_average_rating(x[["1_point", "2_point", "3_point", "4_point", "5_point"]]), axis=1)
+df["bar_score"] = df.apply(lambda x: bayesian_average_rating(x[["1_point", "2_point", "3_point", "4_point", "5_point"]]), axis=1)     # bayesian score u, "1_point"-"5_point" arasi sutunlara gore olusturacagimiz icin
 
 df.sort_values("bar_score", ascending=False).head(20)
 df.sort_values("weighted_sorting_score", ascending=False).head(20)
@@ -224,13 +226,12 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 pd.set_option('display.float_format', lambda x: '%.5f' % x)
 
-df = pd.read_csv("datasets/movies_metadata.csv",
-                 low_memory=False)  # DtypeWarning kapamak icin
-
+df = pd.read_csv("datasets/movies_metadata.csv", low_memory=False)  # DtypeWarning kapamak için
 df = df[["title", "vote_average", "vote_count"]]
 
 df.head()
 df.shape
+df.describe()
 
 
 
@@ -239,6 +240,7 @@ df.shape
 # Vote Average'a Göre Sıralama
 ########################
 
+# vote_average a göre sıralama
 df.sort_values("vote_average", ascending=False).head(20)
 
 # veya vote_count a göre sıralama
@@ -250,11 +252,8 @@ df[df["vote_count"] > 400].sort_values("vote_average", ascending=False).head(20)
 
 from sklearn.preprocessing import MinMaxScaler
 
-# vote_count sütunundaki değerleri, 1 ile 10 arasında bir aralığa ölçeklendirelim
-df["vote_count_score"] = MinMaxScaler(feature_range=(1, 10)). \
-    fit(df[["vote_count"]]). \
-    transform(df[["vote_count"]])
-
+# vote puanları 1-10 arasında olduğu için, vote_count sütunundaki değerleri, 1 ile 10 arasında bir aralığa ölçeklendirelim
+df["vote_count_score"] = MinMaxScaler(feature_range=(1, 10)).fit(df[["vote_count"]]).transform(df[["vote_count"]])
 
 
 
@@ -399,8 +398,8 @@ bayesian_average_rating([37128, 5879, 6268, 8419, 16603, 30016, 78538, 199430, 4
 df = pd.read_csv("datasets/imdb_ratings.csv")
 df = df.iloc[0:, 1:]
 
-# bayesian_average_rating fonksiyonunu kullanarak, bar_score sutunu olusturalim, x: one two.. yildiz olacak
-df["bar_score"] = df.apply(lambda x: bayesian_average_rating(x[["one", "two", "three", "four", "five",
+# bayesian_average_rating fonksiyonunu kullanarak, bar_score sutunu olusturalim.
+df["bar_score"] = df.apply(lambda x: bayesian_average_rating(x[["one", "two", "three", "four", "five",    # bayesian score u, one-ten arasi sutunlara gore olusturacagimiz icin
                                                                 "six", "seven", "eight", "nine", "ten"]]), axis=1)
 df.sort_values("bar_score", ascending=False).head(20)
 
@@ -416,3 +415,10 @@ df.sort_values("bar_score", ascending=False).head(20)
 # we do not disclose the exact method used to generate the rating.
 #
 # See also the complete FAQ for IMDb ratings.
+
+
+
+
+
+
+
